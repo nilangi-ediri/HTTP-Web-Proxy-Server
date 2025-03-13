@@ -156,8 +156,7 @@ while True:
       print('Request sent to origin server\n')
 
       # Get the response from the origin server
-      # ~~~~ INSERT CODE ~~~~
-      # ~~~~ END CODE INSERT ~~~~
+      response = originServerSocket.recv(BUFFER_SIZE)
 
       # Send the response to the client
       # ~~~~ INSERT CODE ~~~~
