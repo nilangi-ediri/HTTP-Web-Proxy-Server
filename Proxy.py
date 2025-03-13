@@ -56,10 +56,13 @@ while True:
 
   # Get HTTP request from client
   # and store it in the variable: message_bytes
-  message_bytes = clientSocket.recv(BUFFER_SIZE)
-  message = message_bytes.decode('utf-8')
-  print ('Received request:')
-  print ('< ' + message)
+  try:
+    message_bytes = clientSocket.recv(BUFFER_SIZE)
+    message = message_bytes.decode('utf-8')
+    print ('Received request:')
+    print ('< ' + message)
+  except:
+    print("Failed to get HTTP request from client and store as message")
 
   # Extract the method, URI and version of the HTTP client request 
   requestParts = message.split()
