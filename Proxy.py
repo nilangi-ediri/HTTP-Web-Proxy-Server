@@ -159,8 +159,7 @@ while True:
       response = originServerSocket.recv(BUFFER_SIZE)
 
       # Send the response to the client
-      # ~~~~ INSERT CODE ~~~~
-      # ~~~~ END CODE INSERT ~~~~
+      clientSocket.sendall(response)
 
       # Create a new file in the cache for the requested file.
       cacheDir, file = os.path.split(cacheLocation)
