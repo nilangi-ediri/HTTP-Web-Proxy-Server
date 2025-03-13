@@ -171,7 +171,7 @@ while True:
       cacheFile = open(cacheLocation, 'wb')
 
       # Save origin server response in the cache file
-      cacheFile.write(response.encode())
+      cacheFile.write(response.encode() if isinstance(response, str) else response)
       cacheFile.close()
       print ('cache file closed')
 
