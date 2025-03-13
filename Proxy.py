@@ -173,10 +173,13 @@ while True:
       # # Save origin server response in the cache file
       # cacheFile.writelines(response)
       # cacheFile.close()
+    if response_data.startswith(b'HTTP/'):
       with open(cacheLocation, 'wb') as cacheFile:
-        cacheFile.write(bytes(response))  # Ensures binary-safe writing
+          cacheFile.write(response_data)
       print("Cache file written successfully.")
-      print ('cache file closed')
+    else:
+      print("Skipping caching: Invalid HTTP response.")
+
 
       # finished communicating with origin server - shutdown socket writes
       print ('origin response received. Closing sockets')
