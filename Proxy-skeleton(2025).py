@@ -26,8 +26,7 @@ except:
 
 try:
   # Bind the the server socket to a host and port
-  # ~~~~ INSERT CODE ~~~~
-  # ~~~~ END CODE INSERT ~~~~
+  serverSocket.bind((proxyHost, proxyPort))
   print ('Port is bound')
 except:
   print('Port is already in use')
