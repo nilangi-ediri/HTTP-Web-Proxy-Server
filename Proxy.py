@@ -104,17 +104,19 @@ while True:
     fileExists = os.path.isfile(cacheLocation)
     
     # Check wether the file is currently in the cache
-    cacheFile = open(cacheLocation, "r")
-    cacheData = cacheFile.readlines()
+    cacheFile = open(cacheLocation, "rb")
+    cacheData = cacheFile.read()
 
     print ('Cache hit! Loading from cache file: ' + cacheLocation)
     # ProxyServer finds a cache hit
     # Send back response to client 
     # Used socket.sendall method as it ensures all data is sent unlike send method
+    
     clientSocket.sendall(cacheData)
+  
     cacheFile.close()
     print ('Sent to the client:')
-    print ('> ' + cacheData)
+    print ('> ',cacheData)
   except:
     # cache miss.  Get resource from origin server
     originServerSocket = None
