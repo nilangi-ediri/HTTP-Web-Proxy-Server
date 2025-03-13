@@ -47,9 +47,9 @@ while True:
 
   # Accept connection from client and store in the clientSocket
   try:
-    # ~~~~ INSERT CODE ~~~~
-    # ~~~~ END CODE INSERT ~~~~
-    print ('Received a connection')
+    clientSocket, clientAddress = serverSocket.accept()
+    #For debugging purposes, added clientAddress
+    print ('Received a connection from ' + clientAddress)
   except:
     print ('Failed to accept connection')
     sys.exit()
