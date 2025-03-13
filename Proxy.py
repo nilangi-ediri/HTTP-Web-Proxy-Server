@@ -174,7 +174,7 @@ while True:
       # cacheFile.writelines(response)
       # cacheFile.close()
       with open(cacheLocation, 'wb') as cacheFile:
-        cacheFile.write(response)  # Ensures binary-safe writing
+        cacheFile.write(bytes(response))  # Ensures binary-safe writing
       print("Cache file written successfully.")
       print ('cache file closed')
 
