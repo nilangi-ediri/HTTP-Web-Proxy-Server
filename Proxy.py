@@ -158,7 +158,12 @@ while True:
       print('Request sent to origin server\n')
 
       # Get the response from the origin server
-      response = originServerSocket.recv(BUFFER_SIZE)
+      response = b""
+    while True:
+      chunk = originServerSocket.recv(BUFFER_SIZE)
+      if not chunk:
+        break
+      response += chunk
 
       # Send the response to the client
       clientSocket.sendall(response)
@@ -171,7 +176,7 @@ while True:
       cacheFile = open(cacheLocation, 'wb')
 
       # Save origin server response in the cache file
-      cacheFile.write(response.encode() if isinstance(response, str) else response)
+      cacheFile.write(response)
       cacheFile.close()
       print ('cache file closed')
 
