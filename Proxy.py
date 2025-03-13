@@ -158,12 +158,7 @@ while True:
       print('Request sent to origin server\n')
 
       # Get the response from the origin server
-      response = b""
-    while True:
-      chunk = originServerSocket.recv(BUFFER_SIZE)
-      if not chunk:
-        break
-      response += chunk
+      response = originServerSocket.recv(BUFFER_SIZE)
 
       # Send the response to the client
       clientSocket.sendall(response)
