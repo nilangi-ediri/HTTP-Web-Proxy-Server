@@ -33,9 +33,8 @@ except:
   sys.exit()
 
 try:
-  # Listen on the server socket
-  # ~~~~ INSERT CODE ~~~~
-  # ~~~~ END CODE INSERT ~~~~
+  #Assumes that the proxy server allows 3 unaccepted connections to queue
+  serverSocket.listen(3) 
   print ('Listening to socket')
 except:
   print ('Failed to listen')
