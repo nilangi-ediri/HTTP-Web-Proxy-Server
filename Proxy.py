@@ -108,7 +108,6 @@ while True:
     print ('Cache hit! Loading from cache file: ' + cacheLocation)
     # ProxyServer finds a cache hit
     # Send back response to client 
-    # Used socket.sendall method as it ensures all data is sent unlike send method
     clientSocket.sendall(cacheData)
     cacheFile.close()
     print ('Sent to the client:')
