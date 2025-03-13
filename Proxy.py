@@ -168,11 +168,14 @@ while True:
       print ('cached directory ' + cacheDir)
       if not os.path.exists(cacheDir):
         os.makedirs(cacheDir)
-      cacheFile = open(cacheLocation, 'wb')
+      # cacheFile = open(cacheLocation, 'wb')
 
-      # Save origin server response in the cache file
-      cacheFile.writelines(response)
-      cacheFile.close()
+      # # Save origin server response in the cache file
+      # cacheFile.writelines(response)
+      # cacheFile.close()
+      with open(cacheLocation, 'wb') as cacheFile:
+        cacheFile.write(response)  # Ensures binary-safe writing
+      print("Cache file written successfully.")
       print ('cache file closed')
 
       # finished communicating with origin server - shutdown socket writes
