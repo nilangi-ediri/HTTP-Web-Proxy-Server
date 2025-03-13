@@ -49,7 +49,7 @@ while True:
   try:
     clientSocket, clientAddress = serverSocket.accept()
     #For debugging purposes, added clientAddress
-    print ('Received a connection from ' + clientAddress)
+    print ('Received a connection')
   except:
     print ('Failed to accept connection')
     sys.exit()
