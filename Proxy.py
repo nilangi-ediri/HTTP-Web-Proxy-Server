@@ -188,19 +188,40 @@ while True:
       # Send the response to the client
       clientSocket.sendall(response)
 
-      # Create a new file in the cache for the requested file.
-      cacheDir, file = os.path.split(cacheLocation)
-      print ('cached directory ' + cacheDir)
-      if not os.path.exists(cacheDir):
-        os.makedirs(cacheDir)
-      cacheFile = open(cacheLocation, 'wb')
+      #Extracting the headers from the response and saving them to a list
+      response_headers = response.decode(errors='ignore').split('\r\n')
+      #Creating a flag to determine if max-age is 0 or not
+      cache_allowed = True
+      #Iterating through each header in the response_headers list
+      for header in response_headers:
+        #Checking if header is a cache-control header
+        if header.lower().startswith('Cache-Control'):
+          #Searching for max-age value and extracting it
+          max_age_found = re.search(r'max-age=(\d+)',header,re.IGNORECASE)
+          #If max-age is found, extract the captured group (the digits) and convert it to an integer using int().
+          if max_age_found:
+            max_age = int(max_age_found.group(1))
+            #If max_age = 0, then response is not cached.
+            if max_age == 0:
+              cache_allowed = False
+              print("Caching is not allowed")
+            else:
+              print("Max-age for caching is: ", max_age)
+      
+      if cache_allowed:
+        # Create a new file in the cache for the requested file.
+        cacheDir, file = os.path.split(cacheLocation)
+        print ('cached directory ' + cacheDir)
+        if not os.path.exists(cacheDir):
+          os.makedirs(cacheDir)
+        cacheFile = open(cacheLocation, 'wb')
 
-      # Save origin server response in the cache file
-      # ~~~~ INSERT CODE ~~~~
-      cacheFile.write(response)
-      # ~~~~ END CODE INSERT ~~~~
-      cacheFile.close()
-      print ('cache file closed')
+        # Save origin server response in the cache file
+        # ~~~~ INSERT CODE ~~~~
+        cacheFile.write(response)
+        # ~~~~ END CODE INSERT ~~~~
+        cacheFile.close()
+        print ('cache file closed')
 
       # finished communicating with origin server - shutdown socket writes
       print ('origin response received. Closing sockets')
