@@ -40,41 +40,49 @@ except:
   print ('Failed to listen')
   sys.exit()
 
+#Defining a redirection flag and location
+redirection_flag = 0
+redirecting_location = ''
 # continuously accept connections
 while True:
-  print ('Waiting for connection...')
-  clientSocket = None
+  if not redirection_flag:
+    print ('Waiting for connection...')
+    clientSocket = None
 
-  # Accept connection from client and store in the clientSocket
-  try:
-    clientSocket, clientAddress = serverSocket.accept()
-    #For debugging purposes, added clientAddress
-    print ('Received a connection from ',clientAddress)
-  except:
-    print ('Failed to accept connection')
-    sys.exit()
+    # Accept connection from client and store in the clientSocket
+    try:
+      clientSocket, clientAddress = serverSocket.accept()
+      #For debugging purposes, added clientAddress
+      print ('Received a connection from ',clientAddress)
+    except:
+      print ('Failed to accept connection')
+      sys.exit()
 
-  # Get HTTP request from client
-  # and store it in the variable: message_bytes
-  try:
-    message_bytes = clientSocket.recv(BUFFER_SIZE)
-    message = message_bytes.decode('utf-8')
-    print ('Received request:')
-    print ('< ' + message)
-  except:
-    print("Failed to get HTTP request from client and store as message")
+    # Get HTTP request from client
+    # and store it in the variable: message_bytes
+    try:
+      message_bytes = clientSocket.recv(BUFFER_SIZE)
+      message = message_bytes.decode('utf-8')
+      print ('Received request:')
+      print ('< ' + message)
+    except:
+      print("Failed to get HTTP request from client and store as message")
 
-  # Extract the method, URI and version of the HTTP client request 
-  requestParts = message.split()
-  method = requestParts[0]
-  URI = requestParts[1]
-  version = requestParts[2]
+    # Extract the method, URI and version of the HTTP client request 
+    requestParts = message.split()
+    method = requestParts[0]
+    URI = requestParts[1]
+    version = requestParts[2]
 
-  print ('Method:\t\t' + method)
-  print ('URI:\t\t' + URI)
-  print ('Version:\t' + version)
-  print ('')
-
+    print ('Method:\t\t' + method)
+    print ('URI:\t\t' + URI)
+    print ('Version:\t' + version)
+    print ('')
+  
+  else:
+    #Directly using the redirected location as URI when redirection occurs
+    URI = '/' + redirecting_location
+      
   # Get the requested resource from URI
   # Remove http protocol from the URI
   URI = re.sub('^(/?)http(s?)://', '', URI, count=1)
@@ -169,9 +177,14 @@ while True:
         string_match = re.search(r'Location: (.*?)\r\n', response_string, re.IGNORECASE)
         if string_match:
           #Extracting the new location from the returned regx search result
-          new_location = string_match.group(1)
-          print("Redirecting to: ",new_location)
-        
+          redirecting_location = string_match.group(1)
+          print("Redirecting to: ",redirecting_location)
+          #Updating the redirection flag to 1 as redirection is required
+          redirection_flag = 1
+          continue
+      else:
+        #Updating the redirection flag to 0 for normal behaviour without redirection
+        redirection_flag = 0 
       # Send the response to the client
       clientSocket.sendall(response)
 
