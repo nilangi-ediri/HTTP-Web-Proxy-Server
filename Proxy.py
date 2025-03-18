@@ -159,6 +159,9 @@ while True:
 
       # Get the response from the origin server
       response = originServerSocket.recv(BUFFER_SIZE)
+      #Convert the binary response into string while ignoring decode errors.
+      response_string = response.decode(errors='ignore')
+      print(response_string)
 
       # Send the response to the client
       clientSocket.sendall(response)
