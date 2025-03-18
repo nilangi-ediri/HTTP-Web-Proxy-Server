@@ -161,8 +161,17 @@ while True:
       response = originServerSocket.recv(BUFFER_SIZE)
       #Convert the binary response into string while ignoring decode errors.
       response_string = response.decode(errors='ignore')
-      print(response_string)
-
+      
+      #Detecting if there are redirected web pages in the response
+      if "301 moved permanently" in response_string.lower() or "302 found" in response_string.lower():
+        print("Redirected Web Pages Detected")
+        #Using regx library, searching for the redirected location
+        string_match = re.search(r'Location: (.*?)\r\n', response_string, re.IGNORECASE)
+        if string_match:
+          #Extracting the new location from the returned regx search result
+          new_location = string_match.group(1)
+          print("Redirecting to: ",new_location)
+        
       # Send the response to the client
       clientSocket.sendall(response)
 
