@@ -148,6 +148,13 @@ while True:
     # Send back response to client 
     # Used socket.sendall method as it ensures all data is sent unlike send method
     
+    #RFC says: The cache MUST attach Warning 113 to any response whose age is more than 24 hours if such warning
+    #has not already been added. Therefore, if current age is greater than 24 hours, the warning is added as a headre to the cacheData and sent to the client.
+    
+    if current_age > 60*60*24:
+      print("Warning: 113 Heuristic Expiration")
+      warning_header = f'\r\nWarning: 113 {hostname}:80 "Heuristic expiration"'
+      cacheData = cacheData.replace(b'\r\n\r\n',warning_header.encode()+b'\r\n\r\n',1)
     clientSocket.sendall(cacheData)
   
     cacheFile.close()
