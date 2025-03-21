@@ -246,7 +246,15 @@ while True:
           cacheFile.write(response)
         # ~~~~ END CODE INSERT ~~~~
         print ('cache file closed')
-                         
+        
+        if max_age == None:
+          #RFC says: If max_age does not appear in response, the cache MAY compute a freshness lifetime using a heuristic.
+          #Therefore, max_age (freshness lifetime) is set to 2 days when max_age == None.
+          max_age = 60*60*24*2
+          
+        with open (cache_control_file_location, "w") as cache_control_file:
+          cache_control_file.write(str(time.time()+max_age))
+                       
         
      # finished communicating with origin server - shutdown socket writes
       print ('origin response received. Closing sockets')
