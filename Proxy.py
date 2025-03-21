@@ -112,8 +112,8 @@ while True:
 
     fileExists = os.path.isfile(cacheLocation)
     
-    #Defining flag to check if the cache file has been expired or not
-    cache_expired = False
+    #Defining response_is_fresh variable to indicate whether response has expired or not, according to RFC 2616 expiration calculations
+    response_is_fresh = True
     
     #Defining the cache meta file path
     cache_control_file_location = cacheLocation + ".meta"
@@ -122,14 +122,19 @@ while True:
     if fileExists and os.path.exists(cache_control_file_location):
       #Opening the cache_control file in read mode
       with open (cache_control_file_location, "r") as cache_control_file:
-        #Read the file and retrieve the calculated expiry time
-        expiry_time = float(cache_control_file.read().strip())
+        #Read the file and retrieve cached time and freshness lifetime (max_age) to perform expiration calculations
+        meta_data_lines = cache_control_file.readlines()
+        #Retrieving the time that the response was cached.
+        cached_time = float(meta_data_lines[0].strip())
+        #Retrieving max-age as freshness lifetime.
+        freshness_lifetime = float(meta_data_lines[1].strip())
+        #Calculating current age of the cached file by deducting current time from cached time.
+        current_age = time.time()-cached_time
+        # The calculation to determine if a response has expired, according to RFC 2616.
+        response_is_fresh = freshness_lifetime > current_age
       
-      #Checking if current time is greater than expiry time (If expiry time has passed or not)
-      if time.time() > expiry_time:
-        cache_expired = True
-
-    if cache_expired:
+    #If the cached file has expired
+    if not response_is_fresh:
       print("Cache file exists but has expired")
       #Raising error so that the program goes to except block and contacts the origin server
       raise ValueError("Cache Expired")
@@ -253,7 +258,8 @@ while True:
           max_age = 60*60*24*2
           
         with open (cache_control_file_location, "w") as cache_control_file:
-          cache_control_file.write(str(time.time()+max_age))
+          #Writing the date_value (current time) and freshness lifetime (max_age) to cache control file for expiration calculations according to RFC 2616.
+          cache_control_file.write(f'{time.time()}\n{max_age}')
                        
         
      # finished communicating with origin server - shutdown socket writes
