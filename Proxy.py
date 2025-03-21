@@ -4,6 +4,7 @@ import sys
 import os
 import argparse
 import re
+import time
 
 # 1MB buffer size
 BUFFER_SIZE = 1000000
@@ -111,6 +112,7 @@ while True:
 
     fileExists = os.path.isfile(cacheLocation)
     
+  
     # Check wether the file is currently in the cache
     cacheFile = open(cacheLocation, "rb")
     cacheData = cacheFile.read()
@@ -190,12 +192,14 @@ while True:
 
       #Extracting the headers from the response and saving them to a list
       response_headers = response.decode(errors='ignore').split('\r\n')
+     
       #Creating a flag to determine if max-age is 0 or not
       cache_allowed = True
+      max_age = None
       #Iterating through each header in the response_headers list
       for header in response_headers:
         #Checking if header is a cache-control header
-        if header.lower().startswith('Cache-Control'):
+        if header.lower().startswith('cache-control'):          
           #Searching for max-age value and extracting it
           max_age_found = re.search(r'max-age=(\d+)',header,re.IGNORECASE)
           #If max-age is found, extract the captured group (the digits) and convert it to an integer using int().
@@ -214,16 +218,16 @@ while True:
         print ('cached directory ' + cacheDir)
         if not os.path.exists(cacheDir):
           os.makedirs(cacheDir)
-        cacheFile = open(cacheLocation, 'wb')
-
+          
         # Save origin server response in the cache file
         # ~~~~ INSERT CODE ~~~~
-        cacheFile.write(response)
+        with open (cacheLocation, 'wb') as cacheFile:
+          cacheFile.write(response)
         # ~~~~ END CODE INSERT ~~~~
-        cacheFile.close()
         print ('cache file closed')
-
-      # finished communicating with origin server - shutdown socket writes
+                         
+        
+     # finished communicating with origin server - shutdown socket writes
       print ('origin response received. Closing sockets')
       originServerSocket.close()
        
