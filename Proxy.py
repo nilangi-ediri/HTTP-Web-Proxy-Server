@@ -112,6 +112,23 @@ while True:
 
     fileExists = os.path.isfile(cacheLocation)
     
+    #Defining flag to check if the cache file has been expired or not
+    cache_expired = False
+    
+    #Defining the cache meta file path
+    cache_control_file_location = cacheLocation + ".meta"
+    
+    #Checking if the cache file and the cache_control file exists
+    if fileExists and os.path.exists(cache_control_file_location):
+      #Opening the cache_control file in read mode
+      with open (cache_control_file_location, "r") as cache_control_file:
+        #Read the file and retrieve the calculated expiry time
+        expiry_time = float(cache_control_file.read().strip())
+      
+      #Checking if current time is greater than expiry time (If expiry time has passed or not)
+      if time.time() > expiry_time:
+        cache_expired = True
+
   
     # Check wether the file is currently in the cache
     cacheFile = open(cacheLocation, "rb")
