@@ -129,6 +129,10 @@ while True:
       if time.time() > expiry_time:
         cache_expired = True
 
+    if cache_expired:
+      print("Cache file exists but has expired")
+      #Raising error so that the program goes to except block and contacts the origin server
+      raise ValueError("Cache Expired")
   
     # Check wether the file is currently in the cache
     cacheFile = open(cacheLocation, "rb")
