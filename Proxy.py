@@ -44,6 +44,9 @@ except:
 #Defining a redirection flag and location
 redirection_flag = 0
 redirecting_location = ''
+#Creating a flag to keep cacheability in general. 
+cache_allowed = True
+
 # continuously accept connections
 while True:
   if not redirection_flag:
@@ -204,8 +207,7 @@ while True:
       response = originServerSocket.recv(BUFFER_SIZE)
       #Convert the binary response into string while ignoring decode errors.
       response_string = response.decode(errors='ignore')
-      #Creating a flag to keep cacheability in general. 
-      cache_allowed = True
+      
       
       #Detecting if there are redirected web pages in the response
       if "301 moved permanently" in response_string.lower() or "302 found" in response_string.lower():
@@ -221,6 +223,7 @@ while True:
           print("Redirecting to: ",redirecting_location)
           #Updating the redirection flag to 1 as redirection is required
           redirection_flag = 1
+          #Goes to back to the while loop to process new location
           continue
       else:
         #Updating the redirection flag to 0 for normal behaviour without redirection
@@ -288,3 +291,6 @@ while True:
     clientSocket.close()
   except:
     print ('Failed to close client socket')
+
+  #After handling one request from the user, giving permission to cache in general.
+  cache_allowed = True
