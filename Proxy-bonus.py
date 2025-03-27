@@ -142,6 +142,8 @@ while True:
         cache_headers = cacheFile.split('\r\n')
         #Created a flag to check if max_age header exists in cache.
         max_age_in_cache_file = False
+        #Initializing expires date variable
+        expires_date = None
         #Iterating through each header in the cache_headers list
         for header in cache_headers:
           #Checking if header is a Cache-Control header
@@ -149,7 +151,11 @@ while True:
             #If max-age is found, extract the captured group (the digits) and convert it to an integer using int().
             if re.search(r'max-age=(\d+)',header,re.IGNORECASE):
               max_age_in_cache_file = True
-              
+          #Checking is header is a Expires header.
+          if header.lower().startswith('expires'):
+            #Split the Expires header at colon, extract the date value and store in expires date.
+            _,expires_date = header.split(':',1)
+        print("aaaaaaaaaaaaaaa", max_age_in_cache_file, expires_date)
       
     #If the cached file has expired
     if not response_is_fresh:
