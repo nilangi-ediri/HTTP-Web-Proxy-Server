@@ -204,12 +204,14 @@ while True:
       response = originServerSocket.recv(BUFFER_SIZE)
       #Convert the binary response into string while ignoring decode errors.
       response_string = response.decode(errors='ignore')
+      #Creating a flag to keep cacheability in general. 
       cache_allowed = True
       
       #Detecting if there are redirected web pages in the response
       if "301 moved permanently" in response_string.lower() or "302 found" in response_string.lower():
         print("Redirected Web Pages Detected")
         if "302 found" in response_string.lower():
+          #According to RFC, generally 302 responses are not cached unless specified by cache-control header.
           cache_allowed = False
         #Using regx library, searching for the redirected location
         string_match = re.search(r'Location: (.*?)\r\n', response_string, re.IGNORECASE)
@@ -229,8 +231,7 @@ while True:
       #Extracting the headers from the response and saving them to a list
       response_headers = response.decode(errors='ignore').split('\r\n')
      
-      #Creating a flag to determine if max-age is 0 or not
-      
+      #Creating a variable to store max-age, which helps to determine whether or not to cache, depending on whether the max_age is 0 or not.
       max_age = None
       #Iterating through each header in the response_headers list
       for header in response_headers:
@@ -246,6 +247,8 @@ while True:
               cache_allowed = False
               print("Caching is not allowed")
             else:
+              #Caching is allowed if max_age is > 0.
+              cache_allowed = True
               print("Max-age for caching is: ", max_age)
       
       if cache_allowed:
