@@ -1,10 +1,12 @@
 # Include the libraries for socket and system calls
+from datetime import datetime
 import socket
 import sys
 import os
 import argparse
 import re
 import time
+import calendar
 
 # 1MB buffer size
 BUFFER_SIZE = 1000000
@@ -134,8 +136,12 @@ while True:
         #Calculating current age of the cached file by deducting current time from cached time.
         current_age = time.time()-cached_time
         # The calculation to determine if a response has expired, according to RFC 2616.
-        response_is_fresh = freshness_lifetime > current_age
-    
+        if freshness_lifetime > current_age:
+          response_is_fresh = True
+          print("Cache file is fresh according to max-age derivative.")
+        else:
+          response_is_fresh = False
+          print("Cache file has expired due to max-age derivative.")
     
     if fileExists:
       
@@ -159,7 +165,20 @@ while True:
           if header.lower().startswith('expires'):
             #Split the Expires header at colon, extract the date value and store in expires date.
             _,expires_date = header.split(':',1)
-        
+
+        #Handling expires date - When max_age is not there, only Expires header exists.
+        if max_age_in_cache_file == False and expires_date != None:
+          expires_date_tuple = datetime.strptime(expires_date.strip(),"%a, %d %b %Y %H:%M:%S %Z")
+          epoch_expires_date = float(calendar.timegm(expires_date_tuple.timetuple()))
+          print("Epoch Expires Date and Time in Cache File: ",epoch_expires_date)
+          
+          if time.time() < epoch_expires_date:
+            response_is_fresh = True 
+            print("Cache file is fresh according to Expires header.")
+          else:
+            response_is_fresh = False
+            print("Cache file has expired due to Expires header.")
+          
       
     #If the cached file has expired
     if not response_is_fresh:
@@ -188,7 +207,8 @@ while True:
     cacheFile.close()
     print ('Sent to the client:')
     print ('> ',cacheData)
-  except:
+  except Exception as e:
+    print("_____________Exception__________:", e)
     # cache miss.  Get resource from origin server
     originServerSocket = None
     # Create a socket to connect to origin server
