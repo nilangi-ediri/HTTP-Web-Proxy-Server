@@ -1,10 +1,10 @@
 HTTP/1.1 200 OK
-Date: Thu, 27 Mar 2025 09:34:45 GMT
+Date: Thu, 27 Mar 2025 09:25:06 GMT
 Content-Type: application/json
-Content-Length: 202
+Content-Length: 204
 Connection: keep-alive
 Server: gunicorn/19.9.0
-Cache-Control: public, max-age=30
+Cache-Control: public, max-age=3600
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Credentials: true
 
@@ -12,8 +12,8 @@ Access-Control-Allow-Credentials: true
   "args": {}, 
   "headers": {
     "Host": "httpbin.org", 
-    "X-Amzn-Trace-Id": "Root=1-67e51bb5-3b908b935810bfb6083b74b4"
+    "X-Amzn-Trace-Id": "Root=1-67e51972-5eabffb46f4d3fbd1ffa7359"
   }, 
   "origin": "175.35.47.27", 
-  "url": "http://httpbin.org/cache/30"
+  "url": "http://httpbin.org/cache/3600"
 }
