@@ -135,6 +135,21 @@ while True:
         current_age = time.time()-cached_time
         # The calculation to determine if a response has expired, according to RFC 2616.
         response_is_fresh = freshness_lifetime > current_age
+        
+    if fileExists:
+      with open (cacheLocation,"r") as cacheFile:
+        #Splitting the headers into individual ones.
+        cache_headers = cacheFile.split('\r\n')
+        #Created a flag to check if max_age header exists in cache.
+        max_age_in_cache_file = False
+        #Iterating through each header in the cache_headers list
+        for header in cache_headers:
+          #Checking if header is a Cache-Control header
+          if header.lower().startswith('cache-control'):          
+            #If max-age is found, extract the captured group (the digits) and convert it to an integer using int().
+            if re.search(r'max-age=(\d+)',header,re.IGNORECASE):
+              max_age_in_cache_file = True
+              
       
     #If the cached file has expired
     if not response_is_fresh:
