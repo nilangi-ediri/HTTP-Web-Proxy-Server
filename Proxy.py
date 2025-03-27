@@ -204,10 +204,13 @@ while True:
       response = originServerSocket.recv(BUFFER_SIZE)
       #Convert the binary response into string while ignoring decode errors.
       response_string = response.decode(errors='ignore')
+      cache_allowed = True
       
       #Detecting if there are redirected web pages in the response
       if "301 moved permanently" in response_string.lower() or "302 found" in response_string.lower():
         print("Redirected Web Pages Detected")
+        if "302 found" in response_string.lower():
+          cache_allowed = False
         #Using regx library, searching for the redirected location
         string_match = re.search(r'Location: (.*?)\r\n', response_string, re.IGNORECASE)
         if string_match:
@@ -227,7 +230,7 @@ while True:
       response_headers = response.decode(errors='ignore').split('\r\n')
      
       #Creating a flag to determine if max-age is 0 or not
-      cache_allowed = True
+      
       max_age = None
       #Iterating through each header in the response_headers list
       for header in response_headers:
