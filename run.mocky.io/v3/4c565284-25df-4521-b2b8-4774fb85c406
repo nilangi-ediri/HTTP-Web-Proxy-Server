@@ -1,8 +1,0 @@
-HTTP/1.1 302 Found
-Cache-Control: max-age=60
-Content-Type: text/html; charset=UTF-8
-Date: Thu, 27 Mar 2025 07:05:45 GMT
-Content-Length: 2
-Sozu-Id: 01JQB6QN4TC1GEVERZXCSHBDWM
-
-{}
