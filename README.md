@@ -40,3 +40,35 @@ Welcome to my submission for **Programming Assignment 1**, where I implemented a
 python3 Proxy.py <proxy_host> <proxy_port>
 # or
 python3 Proxy-bonus.py <proxy_host> <proxy_port>
+```
+
+---
+
+## 📚 Learning Outcomes
+
+- Implemented a full-fledged HTTP proxy server with **socket programming** in Python.
+- Learned to parse and forward HTTP requests and handle server responses.
+- Gained practical insights into **HTTP caching mechanisms** and the usage of:
+  - `max-age`
+  - `Expires`
+  - Heuristic freshness validation
+- Understood how to work with **HTTP status codes**, especially `301`, `302`, and `200`.
+- Explored **resource prefetching** strategies for performance enhancement.
+
+---
+
+## ✅ Notes
+
+- This proxy server supports **only HTTP GET** requests.
+- HTTPS is **not** supported in this assignment.
+- Cached responses are stored in a directory structure mimicking the request URL path.
+- A `.meta` file is created per cached resource for freshness calculations.
+- Prefetching works only for statically linked resources (found in `href` and `src`).
+
+---
+
+## 🙌 Credits
+
+Developed by **Nilangi Edirisinghe**  
+University of Adelaide | COMP SCI 7039 COMPUTER NETWORKS AND APPLICATIONS - Programming Assignment 1  
+📅 Semester 1, 2025
