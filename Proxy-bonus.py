@@ -98,8 +98,18 @@ while True:
 
   # Split hostname from resource name
   resourceParts = URI.split('/', 1)
-  hostname = resourceParts[0]
+  hostname = resourceParts[0] #hostname:portnumber
   resource = '/'
+  
+  #Adding the ability to handle origin server ports that are specified in the URL.
+  hostname_port = resourceParts[0] #hostname:portnumber
+  if ':' in hostname_port:
+    hostname, port = hostname_port.split(':',1)
+    port = int(port)
+  else:
+    hostname = hostname_port
+    port = 80
+    
 
   if len(resourceParts) == 2:
     # Resource is absolute URI with hostname and resource
@@ -220,7 +230,7 @@ while True:
       # Get the IP address for a hostname
       address = socket.gethostbyname(hostname)
       # Connect to the origin server
-      originServerSocket.connect((address, 80))
+      originServerSocket.connect((address, port))
       print ('Connected to origin Server')
 
       originServerRequest = ''

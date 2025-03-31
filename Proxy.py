@@ -98,7 +98,7 @@ while True:
   resourceParts = URI.split('/', 1)
   hostname = resourceParts[0]
   resource = '/'
-
+   
   if len(resourceParts) == 2:
     # Resource is absolute URI with hostname and resource
     resource = resource + resourceParts[1]
