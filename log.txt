@@ -1,608 +1,1 @@
-Commit: fa724cb
-Author: Nilangi-Edirisinghe
-Date: Thu Mar 27 22:24:15 2025 +1030
-
-Summary:
-Created log.txt in utf-8 format with commits and descriptions upto now.
-
-Description:
-
-------------------------
-
-Commit: 9bcf33d
-Author: Nilangi-Edirisinghe
-Date: Thu Mar 27 22:22:29 2025 +1030
-
-Summary:
-Deleted still remaining git log files.
-
-Description:
-
-------------------------
-
-Commit: d6949d9
-Author: Nilangi Edirisinghe
-Date: Thu Mar 27 22:20:48 2025 +1030
-
-Summary:
-Deleted all previous git-log files.
-
-Description:
-
-------------------------
-
-Commit: 6567f36
-Author: Nilangi-Edirisinghe
-Date: Thu Mar 27 22:13:52 2025 +1030
-
-Summary:
-Saved git-commits.txt as utf-8 to fix error.
-
-Description:
-
-------------------------
-
-Commit: e07870c
-Author: Nilangi-Edirisinghe
-Date: Thu Mar 27 22:12:13 2025 +1030
-
-Summary:
-Created git-commits.txt again due to Gradescope not displaying it.
-
-Description:
-
-------------------------
-
-Commit: 5b40944
-Author: Nilangi-Edirisinghe
-Date: Thu Mar 27 22:06:29 2025 +1030
-
-Summary:
-Created git log file to update it and fix git log file not displaying error.
-
-Description:
-
-------------------------
-
-Commit: 1a8ae8a
-Author: Nilangi-Edirisinghe
-Date: Thu Mar 27 21:54:36 2025 +1030
-
-Summary:
-Handling expires date - When max_age is not there, only Expires header exists.
-
-Description:
-Handled Expires Header, prioritized "max-age" derivative over "Expires" header when both are present as per RFC rules.
-
-Tested this behaviour thoroughly using mock GET request with Expires header and max-age derivative.
-
-Printed exception for debugging purposes.
-
-Imported several time related libraries for time zone conversions. Expiration calculations are done after converting to GMT time and then to epochs.
-
-------------------------
-
-Commit: 845f9ba
-Author: Nilangi-Edirisinghe
-Date: Thu Mar 27 20:27:19 2025 +1030
-
-Summary:
-Tested proxy.bonus.py behavior due to expires header and fixed errors.
-
-Description:
-1. Cache hit did not occur due to split error as I had split headers of the cache file without reading the file first. Therefore, read() was added.
-
-2. Second split error - The headers were not separated as expected. The error was fixed by only splitting with '\n' instead of '\r\n'. This occurred as the cacheFile is read as a string, not in binary format.
-
-3. Removed print statement that was used to debug the code.
-
-------------------------
-
-Commit: 0a3f7b9
-Author: Nilangi-Edirisinghe
-Date: Thu Mar 27 19:41:43 2025 +1030
-
-Summary:
-Tested proxy.py for every case denoted in assignment.
-
-Description:
-Everything works successfully except for when an image is requested, the response image cannot be opened via curl or VS code. But when requested via the browser from our proxy, the image is displayed without errors.
-
-------------------------
-
-Commit: 70c713e
-Author: Nilangi-Edirisinghe
-Date: Thu Mar 27 18:56:14 2025 +1030
-
-Summary:
-Checks if header is an Expires header, splits it, extracts the date value and stores in expires_date variable.
-
-Description:
-Print command added for testing.
-
-------------------------
-
-Commit: 9235e7d
-Author: Nilangi-Edirisinghe
-Date: Thu Mar 27 18:42:15 2025 +1030
-
-Summary:
-Extracting headers from cached file and Checking if cached headers have max-age directive.
-
-Description:
-Checking this because the RFC says to give priority to max-age even when Expires header is present:
-
-" Note: if a response includes a Cache-Control field with the max-age directive, that directive overrides the Expires field.".
-
-------------------------
-
-Commit: 0eb33b8
-Author: Nilangi-Edirisinghe
-Date: Thu Mar 27 17:51:29 2025 +1030
-
-Summary:
-Created proxy-bonus.py
-
-Description:
-
-------------------------
-
-Commit: ec97f56
-Author: Nilangi-Edirisinghe
-Date: Thu Mar 27 17:40:00 2025 +1030
-
-Summary:
-Tested Caching Difference between 301 and 302.
-
-Description:
-Results:
---- 301 caches the response.
---- 302 does not cache response or the redirected web page in general.
---- 302 specified with max-age cache control header is cached.
-
-------------------------
-
-Commit: 621254d
-Author: Nilangi-Edirisinghe
-Date: Thu Mar 27 17:20:28 2025 +1030
-
-Summary:
-To stop redirected 302 webpage (new location) getting cached - the scope of cache_allowed flag was changed.
-
-Description:
-1. Instead of its previous location, the cache-allowed flag was taken out of the infinite while loop - so that when the proxy redirects to the new location, it does not cache it.
-
-2. Comment was added to continue statement that loops back to process new location. When it comes to "continue" statement, caching is not allowed for 302 and will not happen as it loops back to beginning of while loop.
-
-3. Setting cache_allowed to True at the end of the while loop - After handling a request from the user, to give permission to cache in general.
-
-------------------------
-
-Commit: 7022c4e
-Author: Nilangi-Edirisinghe
-Date: Thu Mar 27 16:58:13 2025 +1030
-
-Summary:
-Tested if Proxy caches the response of 302 - Error Detected
-
-Description:
-As I had handled redirection before by redirecting to the new location, even if the 302 response is not cached, the redirected web page was cached - which is an error.
-
-------------------------
-
-Commit: 8b2c4f4
-Author: Nilangi-Edirisinghe
-Date: Thu Mar 27 16:47:08 2025 +1030
-
-Summary:
-Added cache_allowed flag to handle 302 - If cache-control header max-age is specified, response is cached.
-
-Description:
-As RFC says - This response is only cacheable if indicated by a Cache-Control or Expires header field.
-
-Additionally, added comments to modified code for handling 302.
-
-------------------------
-
-Commit: e7928e3
-Author: Nilangi-Edirisinghe
-Date: Thu Mar 27 16:34:40 2025 +1030
-
-Summary:
-Handling 302 Found - Edited the cache allowed flag to not cache for 302 responses.
-
-Description:
-Reflects the non-caching behavior that the RFC says for 302 Found:
-"This response is only cacheable if indicated by a Cache-Control or Expires header field."
-
-------------------------
-
-Commit: bb284e5
-Author: Nilangi-Edirisinghe
-Date: Thu Mar 27 16:26:54 2025 +1030
-
-Summary:
-Tested if the proxy handles a page that is not found correctly.
-
-Description:
-Result: The proxy forwards 404 Not Found Error transparently as the origin server sends. No modification to this was done as the RFC does not tell us to do any modifications to 404 response.
-
-------------------------
-
-Commit: dc009ed
-Author: Nilangi-Edirisinghe
-Date: Mon Mar 24 23:55:47 2025 +1030
-
-Summary:
-Add log.txt with commit history upto now
-
-Description:
-
-------------------------
-
-Commit: 7eff00d
-Author: Nilangi-Edirisinghe
-Date: Mon Mar 24 23:54:10 2025 +1030
-
-Summary:
-Testing the Web Proxy with Curl
-
-Description:
-
-------------------------
-
-Commit: e782c12
-Author: Nilangi-Edirisinghe
-Date: Fri Mar 21 23:32:12 2025 +1030
-
-Summary:
-Adding Warning 113 Heuristic Expiration Header to Cached Response if Current Age of Response is more than 24 hours, according to RFC 2616.
-
-Description:
-RFC says: The cache MUST attach Warning 113 to any response whose age is more than 24 hours if such warning has not already been added. Therefore, if current age is greater than 24 hours, the warning is added as a headre to the cacheData and sent to the client.
-
-------------------------
-
-Commit: f77df1f
-Author: Nilangi-Edirisinghe
-Date: Fri Mar 21 22:48:39 2025 +1030
-
-Summary:
-Performing Expiration Calculations according to RFC 2616. Thus, the previous variable names were changed to match the RFC and calculations were redone to check if cache has expired, in terms of response_is_fresh, freshness lifetime and current age.
-
-Description:
-
-------------------------
-
-Commit: 3ebc352
-Author: Nilangi-Edirisinghe
-Date: Fri Mar 21 21:58:33 2025 +1030
-
-Summary:
-When max_age does not appear, computing freshness lifetime using a heuristic - setting as 2 days and writing expiry time into cache meta file.
-
-Description:
-RFC says: If max_age does not appear in response, the cache MAY compute a freshness lifetime using a heuristic.
-Therefore, max_age (freshness lifetime) is set to 2 days when max_age == None.
-Then, the computed expiry time to the cache control file is written after opening it. It is computed by adding current time (Time in seconds since the epoch) to max age.
-
-------------------------
-
-Commit: c0ada90
-Author: Nilangi-Edirisinghe
-Date: Fri Mar 21 21:38:30 2025 +1030
-
-Summary:
-If cache expired, Raising error so that the program goes to except block and contacts the origin server.
-
-Description:
-
-------------------------
-
-Commit: 9338e97
-Author: Nilangi-Edirisinghe
-Date: Fri Mar 21 21:29:25 2025 +1030
-
-Summary:
-Opening cache control file, reading the expiry time calculated and checking if the cache file has expired
-
-Description:
-Defining the cache meta file path
-Checking if the cache file and the cache_control file exists
-Opening the cache_control file in read mode
-Read the file and retrieve the calculated expiry time
-Checking if current time is greater than expiry time (If expiry time has passed or not)
-
-------------------------
-
-Commit: 291a9a4
-Author: Nilangi-Edirisinghe
-Date: Fri Mar 21 21:14:21 2025 +1030
-
-Summary:
-Resolving error with matching cache-control header due to case sensitivity, initializing max_age as None and changing cache file open to with open block.
-
-Description:
-
-------------------------
-
-Commit: b864d85
-Author: Nilangi-Edirisinghe
-Date: Tue Mar 18 23:58:21 2025 +1030
-
-Summary:
-Implemented cache-control header parsing to determine caching eligibility.
-
-Description:
-Extracted response headers from the server response and saved them in a list.
-
-Iterated through each header to check if it is a Cache-Control header.
-
-Used regex to search for the max-age value and extract it.
-
-If max-age=0, caching is not allowed, and a message is printed to indicate this.
-
-Otherwise, the max-age value is extracted, converted to an integer, and printed to show how long the response can be cached.
-
-Created a flag (cache_allowed) to determine if caching should happen.
-
-------------------------
-
-Commit: 680189a
-Author: Nilangi-Edirisinghe
-Date: Tue Mar 18 21:13:43 2025 +1030
-
-Summary:
-Changes occured in cached file as I deleted it for testing purposes.
-
-Description:
-
-------------------------
-
-Commit: f8382fc
-Author: Nilangi-Edirisinghe
-Date: Tue Mar 18 21:12:35 2025 +1030
-
-Summary:
-Handling redirection - Added a redirection flag to change the flow of the program when redirection occurs.
-
-Description:
-1. Defined redirection flag and location.
-2. Added 'if not redirection flag' condition and included the normal behavior there via indentation.
-3. For the else part of the above condition (when redirection flag = 1, redirection occurs) the URI is set to the new redirected location extracted.
-4. Redirection flag is updated to 1, when redirection status is detected and redirected location is extracted.
-5. Redirection flag is set to 0 for normal behavior without redirection.
-
-------------------------
-
-Commit: ac77975
-Author: Nilangi-Edirisinghe
-Date: Tue Mar 18 19:51:55 2025 +1030
-
-Summary:
-Detecting redirected web pages in the response, searching for the redirected location and extracting the new location.
-
-Description:
-1. Detecting if there are redirected web pages in the response
-2. Using regx library, searching for the redirected location.
-3. Extracting the new location from the returned regx search result.
-
-------------------------
-
-Commit: 84b80ac
-Author: Nilangi-Edirisinghe
-Date: Tue Mar 18 19:22:56 2025 +1030
-
-Summary:
-Converting the binary response into string while ignoring decode errors.
-
-Description:
-
-------------------------
-
-Commit: 06f4b83
-Author: Nilangi-Edirisinghe
-Date: Fri Mar 14 03:29:47 2025 +1030
-
-Summary:
-Added 'INSERT CODE' block as removing it caused Gradescope Skeleton Code Check Error.
-
-Description:
-
-------------------------
-
-Commit: 4067736
-Author: Nilangi-Edirisinghe
-Date: Thu Mar 13 20:56:26 2025 +1030
-
-Summary:
-Error correcting at Cache Hit - when reading a cached file.
-
-Description:
-When I tested using curl - I tested using " curl -iS http://localhost:8080/http://http.badssl.com/" for the second time, to see if the cache-hit scenario works fine.
-There was an error at Cache Hit - the server would print it is a cache hit, but the file was not sent to the client from the cache and the origin server was contacted.
-I went through trial and error several times and solved the issue. The issues were: the file was not opened in the binary format, the use of readlines command and concatenating issue with string '>' and binary cacheData.
-
-Hence, the cache file opening format was changed to 'rb', used 'read' command to read cacheFile and printed cacheData separately.
-
-------------------------
-
-Commit: f094ca6
-Author: Nilangi-Edirisinghe
-Date: Thu Mar 13 20:17:49 2025 +1030
-
-Summary:
-Correcting the error "failed to accept connection" after testing with Telnet client.
-
-Description:
-For clarity, I had added clientAddress to be displayed when the proxy server accepts the client's connection. I had used "+" which gave the error when testing the proxy server using Telnet client. I changed it to a comma and added the clientAddress to be displayed.
-
-------------------------
-
-Commit: afa1cdb
-Author: Nilangi-Edirisinghe
-Date: Thu Mar 13 20:03:58 2025 +1030
-
-Summary:
-Writing the response received from origin server to cacheFile. (Saving the response from origin server)
-
-Description:
-
-------------------------
-
-Commit: 365ba0f
-Author: Nilangi-Edirisinghe
-Date: Thu Mar 13 19:56:31 2025 +1030
-
-Summary:
-Sending the response taken from origin server to client using sendall method.
-
-Description:
-
-------------------------
-
-Commit: aafa0b1
-Author: Nilangi-Edirisinghe
-Date: Thu Mar 13 19:54:44 2025 +1030
-
-Summary:
-Received the response from the origin server.
-
-Description:
-
-------------------------
-
-Commit: 370a6ee
-Author: Nilangi-Edirisinghe
-Date: Thu Mar 13 19:51:32 2025 +1030
-
-Summary:
-Update the HTTP request line and header.
-
-Description:
-The resource that had been extracted from URI was used for the HTTP request line and the extracted hostname was used for the header line.
-
-------------------------
-
-Commit: c6214ac
-Author: Nilangi-Edirisinghe
-Date: Thu Mar 13 19:29:43 2025 +1030
-
-Summary:
-Created socket to connect with origin server and created connection with origin server. Port was given as 80.
-
-Description:
-
-------------------------
-
-Commit: 7dd8232
-Author: Nilangi-Edirisinghe
-Date: Thu Mar 13 19:20:28 2025 +1030
-
-Summary:
-When it is a Cache Hit - send data using "socket.sendall" method to ensure all data is sent.
-
-Description:
-
-------------------------
-
-Commit: 5129557
-Author: Nilangi-Edirisinghe
-Date: Thu Mar 13 19:14:24 2025 +1030
-
-Summary:
-Added try except block to handle errors when getting HTTP request from client and storing it.
-
-Description:
-
-------------------------
-
-Commit: e53af0d
-Author: Nilangi-Edirisinghe
-Date: Thu Mar 13 18:57:49 2025 +1030
-
-Summary:
-Got HTTP request from client and stored as message_bytes
-
-Description:
-
-------------------------
-
-Commit: 469cff8
-Author: Nilangi-Edirisinghe
-Date: Thu Mar 13 18:45:42 2025 +1030
-
-Summary:
-Renamed file into Proxy.py according to given submission instructions.
-
-Description:
-I did not notice the file name should be changed, and I had already started creating server socket, binding. listening and accepting. After that I renamed the file to Proxy.py.
-
-------------------------
-
-Commit: 484ac32
-Author: Nilangi-Edirisinghe
-Date: Thu Mar 13 18:38:37 2025 +1030
-
-Summary:
-Accepted client connection and stored in clientSocket and clientAddress
-
-Description:
-
-------------------------
-
-Commit: 6918804
-Author: Nilangi-Edirisinghe
-Date: Thu Mar 13 18:28:46 2025 +1030
-
-Summary:
-Listening to socket, allowing 3 to queue
-
-Description:
-
-------------------------
-
-Commit: 68ec1ed
-Author: Nilangi-Edirisinghe
-Date: Thu Mar 13 18:09:32 2025 +1030
-
-Summary:
-Binding Server Socket
-
-Description:
-
-------------------------
-
-Commit: 50facec
-Author: Nilangi-Edirisinghe
-Date: Thu Mar 13 17:32:33 2025 +1030
-
-Summary:
-Created Server Socket
-
-Description:
-
-------------------------
-
-Commit: c4218d0
-Author: Nilangi-Edirisinghe
-Date: Thu Mar 13 17:16:36 2025 +1030
-
-Summary:
-Added Given Skeleton Code
-
-Description:
-Added Proxy-skeleton(2025).py
-
-------------------------
-
-Commit: 9cf40b4
-Author: Nilangi Edirisinghe
-Date: Thu Mar 13 15:44:41 2025 +1030
-
-Summary:
-Initial commit
-
-Description:
-
-------------------------
+  C o m m i t :   7 c 3 1 c a 3   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   M o n   M a r   3 1   1 4 : 3 9 : 1 2   2 0 2 5   + 1 0 3 0     S u m m a r y :   A d d e d   " I N S E R T   C O D E "   c o m m e n t   b l o c k s   a s   I   h a d   r e p l a c e d   t h o s e   w h e n   e d i t i n g .     D e s c r i p t i o n :   A d d e d   " I N S E R T   C O D E "   a n d   " E N D   C O D E   I N S E R T "   c o m m e n t   b l o c k s   a s   I   h a d   r e p l a c e d   t h o s e   w h e n   e d i t i n g ,   a s   G r a d e s c o p e   c h e c k s   f o r   i t   a n d   s o   t h a t   i t   w i l l   b e   h e l p f u l   f o r   t h e   m a r k e r .     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   b d f 7 e 3 f   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   M o n   M a r   3 1   1 4 : 1 4 : 4 5   2 0 2 5   + 1 0 3 0     S u m m a r y :   D e l e t e d   a l l   c a c h e d   f i l e s   t o   k e e p   t h e   r e p o   f r e s h .     D e s c r i p t i o n :     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   e 4 3 7 2 e 2   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   M o n   M a r   3 1   1 4 : 1 2 : 3 2   2 0 2 5   + 1 0 3 0     S u m m a r y :   F i n a l   T e s t i n g   D o n e   f o r   P r o x y . p y     D e s c r i p t i o n :     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   9 4 e 2 e e b   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   M o n   M a r   3 1   1 3 : 2 9 : 2 4   2 0 2 5   + 1 0 3 0     S u m m a r y :   A d d e d   p r e f e t c h i n g   a n d   c a c h i n g   o f   H T M L - l i n k e d   r e s o u r c e s   ( h r e f / s r c )   a n d   t e s t e d .     D e s c r i p t i o n :   -   E x t r a c t e d   a l l   h r e f   a n d   s r c   l i n k s   f r o m   t h e   H T M L   r e s p o n s e   o f   t h e   m a i n   w e b p a g e   u s i n g   r e g e x .   -   U s e d   u r l j o i n ( )   t o   c o n v e r t   r e l a t i v e   U R L s   t o   a b s o l u t e   U R L s   b a s e d   o n   t h e   c u r r e n t   h o s t n a m e   a n d   p o r t .   -   F o r   e a c h   e x t r a c t e d   r e s o u r c e ,   e s t a b l i s h e d   a   c o n n e c t i o n   t o   t h e   a p p r o p r i a t e   o r i g i n   s e r v e r   a n d   s e n t   a   G E T   r e q u e s t   t o   p r e f e t c h   i t .   -   T h e   r e s p o n s e   f r o m   t h e   s e r v e r   w a s   h a n d l e d   a n d   c a c h e d   u s i n g   t h e   s a m e   c a c h i n g   p r o c e s s   a s   t h e   m a i n   r e q u e s t ,   i n c l u d i n g :              C r e a t i n g   c a c h e   f i l e   p a t h s   b a s e d   o n   h o s t n a m e ,   p o r t ,   a n d   r e s o u r c e   p a t h .              R e s p e c t i n g   C a c h e - C o n t r o l   h e a d e r s   ( e . g . ,   m a x - a g e )   f o r   e x p i r a t i o n .              W r i t i n g   t h e   r e s p o n s e   a n d   m e t a d a t a   ( t i m e s t a m p   a n d   m a x - a g e )   t o   c a c h e   f i l e s .   -   P r e f e t c h e d   f i l e s   a r e   s t o r e d   l o c a l l y   b u t   n o t   s e n t   t o   t h e   c l i e n t   u n l e s s   r e q u e s t e d .   -   H a n d l e d   e x c e p t i o n s   t o   e n s u r e   p r o x y   s t a b i l i t y   e v e n   i f   a   p r e f e t c h   a t t e m p t   f a i l s .     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   9 f c d 9 f 3   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   M o n   M a r   3 1   1 1 : 5 8 : 2 9   2 0 2 5   + 1 0 3 0     S u m m a r y :   W o r k i n g   f i r s t   s t e p   t o   p r e - f e t c h   t h e   a s s o c i a t e d   f i l e s   o f   t h e   m a i n   w e b p a g e   a n d   c a c h e   t h e m   i n   t h e   p r o x y   s e r v e r .     D e s c r i p t i o n :   1 .   D e c o d e d   r e s p o n s e   t o   s t r i n g   r e a d a b l e   f o r m a t   f r o m   b i n a r y   f o r m a t ,   t o   p r e - f e t c h   t h e   a s s o c i a t e d   f i l e s   o f   t h e   m a i n   w e b p a g e .     2 .   S e a r c h e d   a n d   e x t r a c t e d   t h e   h r e f   a n d   s r c   l i n k s   u s i n g   r e g x   m o d u l e .     3 .   I m p o r t e d   u r l j o i n .     4 .   A p p l i e d   u r l j o i n ( )   t o   c o n v e r t   a n y   r e l a t i v e   U R L s     i n t o   a b s o l u t e   U R L s   u s i n g   t h e   b a s e   U R L   f r o m   t h e   o r i g i n a l   r e q u e s t   ( h t t p : / / { h o s t n a m e } : { p o r t } ) .     5 .   P r i n t e d   t h e s e   a b s o l u t e   U R L s   f o r   v e r i f i c a t i o n .   I n   a   f u l l   i m p l e m e n t a t i o n ,   t h e s e   w o u l d   b e   p r e f e t c h e d   a n d   c a c h e d .     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   f 7 8 5 5 1 c   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   M o n   M a r   3 1   1 1 : 0 2 : 5 4   2 0 2 5   + 1 0 3 0     S u m m a r y :   T e s t e d   C a c h i n g   B e h a v i o u r   a f t e r   E n a b l i n g   t h e   a b i l i t y   t o   h a n d l e   o r i g i n   s e r v e r   p o r t s   t h a t   a r e   s p e c i f i e d   i n   t h e   U R L .     D e s c r i p t i o n :   W o r k s   w e l l   a f t e r   a d d i n g   p o r t   n u m b e r   t o   c a c h e   l o c a t i o n .   T e s t e d   w i t h :   " h t t p : / / p o r t q u i z . n e t : 8 0 8 0 " ,   " h t t p : / / p o r t q u i z . n e t : 6 6 6 "     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   3 8 4 c b 1 a   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   M o n   M a r   3 1   1 0 : 5 4 : 5 0   2 0 2 5   + 1 0 3 0     S u m m a r y :   T e s t e d   t h e   t h e   a b i l i t y   t o   h a n d l e   o r i g i n   s e r v e r   p o r t s   t h a t   a r e   s p e c i f i e d   i n   t h e   U R L .     D e s c r i p t i o n :   T e s t e d   u s i n g   h t t p : / / p o r t q u i z . n e t : 8 0 8 0 /   a n d   i t   w o r k e d   w e l l .     H o w e v e r   o n e   e r r o r   w a s   d e t e c t e d   -   a   c a c h e   h i t   o c c u r e d   w h e n   I   t e s t e d   w i t h   h t t p : / / p o r t q u i z . n e t : 6 6 6 .     T h i s   m e a n s   t h e   c a c h e   l o c a t i o n   p a t h   d i d   n o t   i n c l u d e   t h e   p o r t   n u m b e r   a n d   d i d   n o t   c h e c k   f o r   i t .     T h e r e f o r e   t h e   p o r t   n u m b e r   w a s   a d d e d   t o   c a c h e   l o c a t i o n .     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   7 f 9 5 7 e 6   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   M o n   M a r   3 1   1 0 : 3 3 : 3 8   2 0 2 5   + 1 0 3 0     S u m m a r y :   A d d   t h e   a b i l i t y   t o   h a n d l e   o r i g i n   s e r v e r   p o r t s   t h a t   a r e   s p e c i f i e d   i n   t h e   U R L .     D e s c r i p t i o n :   S p l i t   t h e   h o s t   n a m e   a n d   e x t r a c t e d   t h e   p o r t   n u m b e r   t o   e n a b l e   h a n d l e   o r i g i n   s e r v e r   p o r t s   t h a t   a r e   s p e c i f i e d   i n   t h e   U R L .     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   e 6 1 a 8 4 c   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T h u   M a r   2 7   2 2 : 3 1 : 0 7   2 0 2 5   + 1 0 3 0     S u m m a r y :   U p d a t e d   l o g . t x t   d u e   t o   f o r m a t t i n g   e r r o r .     D e s c r i p t i o n :     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   f a 7 2 4 c b   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T h u   M a r   2 7   2 2 : 2 4 : 1 5   2 0 2 5   + 1 0 3 0     S u m m a r y :   C r e a t e d   l o g . t x t   i n   u t f - 8   f o r m a t   w i t h   c o m m i t s   a n d   d e s c r i p t i o n s   u p t o   n o w .     D e s c r i p t i o n :     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   9 b c f 3 3 d   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T h u   M a r   2 7   2 2 : 2 2 : 2 9   2 0 2 5   + 1 0 3 0     S u m m a r y :   D e l e t e d   s t i l l   r e m a i n i n g   g i t   l o g   f i l e s .     D e s c r i p t i o n :     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   d 6 9 4 9 d 9   A u t h o r :   N i l a n g i   E d i r i s i n g h e   D a t e :   T h u   M a r   2 7   2 2 : 2 0 : 4 8   2 0 2 5   + 1 0 3 0     S u m m a r y :   D e l e t e d   a l l   p r e v i o u s   g i t - l o g   f i l e s .     D e s c r i p t i o n :     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   6 5 6 7 f 3 6   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T h u   M a r   2 7   2 2 : 1 3 : 5 2   2 0 2 5   + 1 0 3 0     S u m m a r y :   S a v e d   g i t - c o m m i t s . t x t   a s   u t f - 8   t o   f i x   e r r o r .     D e s c r i p t i o n :     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   e 0 7 8 7 0 c   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T h u   M a r   2 7   2 2 : 1 2 : 1 3   2 0 2 5   + 1 0 3 0     S u m m a r y :   C r e a t e d   g i t - c o m m i t s . t x t   a g a i n   d u e   t o   G r a d e s c o p e   n o t   d i s p l a y i n g   i t .     D e s c r i p t i o n :     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   5 b 4 0 9 4 4   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T h u   M a r   2 7   2 2 : 0 6 : 2 9   2 0 2 5   + 1 0 3 0     S u m m a r y :   C r e a t e d   g i t   l o g   f i l e   t o   u p d a t e   i t   a n d   f i x   g i t   l o g   f i l e   n o t   d i s p l a y i n g   e r r o r .     D e s c r i p t i o n :     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   1 a 8 a e 8 a   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T h u   M a r   2 7   2 1 : 5 4 : 3 6   2 0 2 5   + 1 0 3 0     S u m m a r y :   H a n d l i n g   e x p i r e s   d a t e   -   W h e n   m a x _ a g e   i s   n o t   t h e r e ,   o n l y   E x p i r e s   h e a d e r   e x i s t s .     D e s c r i p t i o n :   H a n d l e d   E x p i r e s   H e a d e r ,   p r i o r i t i z e d   " m a x - a g e "   d e r i v a t i v e   o v e r   " E x p i r e s "   h e a d e r   w h e n   b o t h   a r e   p r e s e n t   a s   p e r   R F C   r u l e s .     T e s t e d   t h i s   b e h a v i o u r   t h o r o u g h l y   u s i n g   m o c k   G E T   r e q u e s t   w i t h   E x p i r e s   h e a d e r   a n d   m a x - a g e   d e r i v a t i v e .     P r i n t e d   e x c e p t i o n   f o r   d e b u g g i n g   p u r p o s e s .     I m p o r t e d   s e v e r a l   t i m e   r e l a t e d   l i b r a r i e s   f o r   t i m e   z o n e   c o n v e r s i o n s .   E x p i r a t i o n   c a l c u l a t i o n s   a r e   d o n e   a f t e r   c o n v e r t i n g   t o   G M T   t i m e   a n d   t h e n   t o   e p o c h s .     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   8 4 5 f 9 b a   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T h u   M a r   2 7   2 0 : 2 7 : 1 9   2 0 2 5   + 1 0 3 0     S u m m a r y :   T e s t e d   p r o x y . b o n u s . p y   b e h a v i o r   d u e   t o   e x p i r e s   h e a d e r   a n d   f i x e d   e r r o r s .     D e s c r i p t i o n :   1 .   C a c h e   h i t   d i d   n o t   o c c u r   d u e   t o   s p l i t   e r r o r   a s   I   h a d   s p l i t   h e a d e r s   o f   t h e   c a c h e   f i l e   w i t h o u t   r e a d i n g   t h e   f i l e   f i r s t .   T h e r e f o r e ,   r e a d ( )   w a s   a d d e d .     2 .   S e c o n d   s p l i t   e r r o r   -   T h e   h e a d e r s   w e r e   n o t   s e p a r a t e d   a s   e x p e c t e d .   T h e   e r r o r   w a s   f i x e d   b y   o n l y   s p l i t t i n g   w i t h   ' \ n '   i n s t e a d   o f   ' \ r \ n ' .   T h i s   o c c u r r e d   a s   t h e   c a c h e F i l e   i s   r e a d   a s   a   s t r i n g ,   n o t   i n   b i n a r y   f o r m a t .     3 .   R e m o v e d   p r i n t   s t a t e m e n t   t h a t   w a s   u s e d   t o   d e b u g   t h e   c o d e .     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   0 a 3 f 7 b 9   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T h u   M a r   2 7   1 9 : 4 1 : 4 3   2 0 2 5   + 1 0 3 0     S u m m a r y :   T e s t e d   p r o x y . p y   f o r   e v e r y   c a s e   d e n o t e d   i n   a s s i g n m e n t .     D e s c r i p t i o n :   E v e r y t h i n g   w o r k s   s u c c e s s f u l l y   e x c e p t   f o r   w h e n   a n   i m a g e   i s   r e q u e s t e d ,   t h e   r e s p o n s e   i m a g e   c a n n o t   b e   o p e n e d   v i a   c u r l   o r   V S   c o d e .   B u t   w h e n   r e q u e s t e d   v i a   t h e   b r o w s e r   f r o m   o u r   p r o x y ,   t h e   i m a g e   i s   d i s p l a y e d   w i t h o u t   e r r o r s .     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   7 0 c 7 1 3 e   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T h u   M a r   2 7   1 8 : 5 6 : 1 4   2 0 2 5   + 1 0 3 0     S u m m a r y :   C h e c k s   i f   h e a d e r   i s   a n   E x p i r e s   h e a d e r ,   s p l i t s   i t ,   e x t r a c t s   t h e   d a t e   v a l u e   a n d   s t o r e s   i n   e x p i r e s _ d a t e   v a r i a b l e .     D e s c r i p t i o n :   P r i n t   c o m m a n d   a d d e d   f o r   t e s t i n g .     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   9 2 3 5 e 7 d   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T h u   M a r   2 7   1 8 : 4 2 : 1 5   2 0 2 5   + 1 0 3 0     S u m m a r y :   E x t r a c t i n g   h e a d e r s   f r o m   c a c h e d   f i l e   a n d   C h e c k i n g   i f   c a c h e d   h e a d e r s   h a v e   m a x - a g e   d i r e c t i v e .     D e s c r i p t i o n :   C h e c k i n g   t h i s   b e c a u s e   t h e   R F C   s a y s   t o   g i v e   p r i o r i t y   t o   m a x - a g e   e v e n   w h e n   E x p i r e s   h e a d e r   i s   p r e s e n t :     "   N o t e :   i f   a   r e s p o n s e   i n c l u d e s   a   C a c h e - C o n t r o l   f i e l d   w i t h   t h e   m a x - a g e   d i r e c t i v e ,   t h a t   d i r e c t i v e   o v e r r i d e s   t h e   E x p i r e s   f i e l d . " .     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   0 e b 3 3 b 8   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T h u   M a r   2 7   1 7 : 5 1 : 2 9   2 0 2 5   + 1 0 3 0     S u m m a r y :   C r e a t e d   p r o x y - b o n u s . p y     D e s c r i p t i o n :     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   e c 9 7 f 5 6   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T h u   M a r   2 7   1 7 : 4 0 : 0 0   2 0 2 5   + 1 0 3 0     S u m m a r y :   T e s t e d   C a c h i n g   D i f f e r e n c e   b e t w e e n   3 0 1   a n d   3 0 2 .     D e s c r i p t i o n :   R e s u l t s :   - - -   3 0 1   c a c h e s   t h e   r e s p o n s e .   - - -   3 0 2   d o e s   n o t   c a c h e   r e s p o n s e   o r   t h e   r e d i r e c t e d   w e b   p a g e   i n   g e n e r a l .   - - -   3 0 2   s p e c i f i e d   w i t h   m a x - a g e   c a c h e   c o n t r o l   h e a d e r   i s   c a c h e d .     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   6 2 1 2 5 4 d   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T h u   M a r   2 7   1 7 : 2 0 : 2 8   2 0 2 5   + 1 0 3 0     S u m m a r y :   T o   s t o p   r e d i r e c t e d   3 0 2   w e b p a g e   ( n e w   l o c a t i o n )   g e t t i n g   c a c h e d   -   t h e   s c o p e   o f   c a c h e _ a l l o w e d   f l a g   w a s   c h a n g e d .     D e s c r i p t i o n :   1 .   I n s t e a d   o f   i t s   p r e v i o u s   l o c a t i o n ,   t h e   c a c h e - a l l o w e d   f l a g   w a s   t a k e n   o u t   o f   t h e   i n f i n i t e   w h i l e   l o o p   -   s o   t h a t   w h e n   t h e   p r o x y   r e d i r e c t s   t o   t h e   n e w   l o c a t i o n ,   i t   d o e s   n o t   c a c h e   i t .     2 .   C o m m e n t   w a s   a d d e d   t o   c o n t i n u e   s t a t e m e n t   t h a t   l o o p s   b a c k   t o   p r o c e s s   n e w   l o c a t i o n .   W h e n   i t   c o m e s   t o   " c o n t i n u e "   s t a t e m e n t ,   c a c h i n g   i s   n o t   a l l o w e d   f o r   3 0 2   a n d   w i l l   n o t   h a p p e n   a s   i t   l o o p s   b a c k   t o   b e g i n n i n g   o f   w h i l e   l o o p .     3 .   S e t t i n g   c a c h e _ a l l o w e d   t o   T r u e   a t   t h e   e n d   o f   t h e   w h i l e   l o o p   -   A f t e r   h a n d l i n g   a   r e q u e s t   f r o m   t h e   u s e r ,   t o   g i v e   p e r m i s s i o n   t o   c a c h e   i n   g e n e r a l .     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   7 0 2 2 c 4 e   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T h u   M a r   2 7   1 6 : 5 8 : 1 3   2 0 2 5   + 1 0 3 0     S u m m a r y :   T e s t e d   i f   P r o x y   c a c h e s   t h e   r e s p o n s e   o f   3 0 2   -   E r r o r   D e t e c t e d     D e s c r i p t i o n :   A s   I   h a d   h a n d l e d   r e d i r e c t i o n   b e f o r e   b y   r e d i r e c t i n g   t o   t h e   n e w   l o c a t i o n ,   e v e n   i f   t h e   3 0 2   r e s p o n s e   i s   n o t   c a c h e d ,   t h e   r e d i r e c t e d   w e b   p a g e   w a s   c a c h e d   -   w h i c h   i s   a n   e r r o r .     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   8 b 2 c 4 f 4   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T h u   M a r   2 7   1 6 : 4 7 : 0 8   2 0 2 5   + 1 0 3 0     S u m m a r y :   A d d e d   c a c h e _ a l l o w e d   f l a g   t o   h a n d l e   3 0 2   -   I f   c a c h e - c o n t r o l   h e a d e r   m a x - a g e   i s   s p e c i f i e d ,   r e s p o n s e   i s   c a c h e d .     D e s c r i p t i o n :   A s   R F C   s a y s   -   T h i s   r e s p o n s e   i s   o n l y   c a c h e a b l e   i f   i n d i c a t e d   b y   a   C a c h e - C o n t r o l   o r   E x p i r e s   h e a d e r   f i e l d .     A d d i t i o n a l l y ,   a d d e d   c o m m e n t s   t o   m o d i f i e d   c o d e   f o r   h a n d l i n g   3 0 2 .     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   e 7 9 2 8 e 3   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T h u   M a r   2 7   1 6 : 3 4 : 4 0   2 0 2 5   + 1 0 3 0     S u m m a r y :   H a n d l i n g   3 0 2   F o u n d   -   E d i t e d   t h e   c a c h e   a l l o w e d   f l a g   t o   n o t   c a c h e   f o r   3 0 2   r e s p o n s e s .     D e s c r i p t i o n :   R e f l e c t s   t h e   n o n - c a c h i n g   b e h a v i o r   t h a t   t h e   R F C   s a y s   f o r   3 0 2   F o u n d :   " T h i s   r e s p o n s e   i s   o n l y   c a c h e a b l e   i f   i n d i c a t e d   b y   a   C a c h e - C o n t r o l   o r   E x p i r e s   h e a d e r   f i e l d . "     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   b b 2 8 4 e 5   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T h u   M a r   2 7   1 6 : 2 6 : 5 4   2 0 2 5   + 1 0 3 0     S u m m a r y :   T e s t e d   i f   t h e   p r o x y   h a n d l e s   a   p a g e   t h a t   i s   n o t   f o u n d   c o r r e c t l y .     D e s c r i p t i o n :   R e s u l t :   T h e   p r o x y   f o r w a r d s   4 0 4   N o t   F o u n d   E r r o r   t r a n s p a r e n t l y   a s   t h e   o r i g i n   s e r v e r   s e n d s .   N o   m o d i f i c a t i o n   t o   t h i s   w a s   d o n e   a s   t h e   R F C   d o e s   n o t   t e l l   u s   t o   d o   a n y   m o d i f i c a t i o n s   t o   4 0 4   r e s p o n s e .     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   d c 0 0 9 e d   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   M o n   M a r   2 4   2 3 : 5 5 : 4 7   2 0 2 5   + 1 0 3 0     S u m m a r y :   A d d   l o g . t x t   w i t h   c o m m i t   h i s t o r y   u p t o   n o w     D e s c r i p t i o n :     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   7 e f f 0 0 d   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   M o n   M a r   2 4   2 3 : 5 4 : 1 0   2 0 2 5   + 1 0 3 0     S u m m a r y :   T e s t i n g   t h e   W e b   P r o x y   w i t h   C u r l     D e s c r i p t i o n :     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   e 7 8 2 c 1 2   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   F r i   M a r   2 1   2 3 : 3 2 : 1 2   2 0 2 5   + 1 0 3 0     S u m m a r y :   A d d i n g   W a r n i n g   1 1 3   H e u r i s t i c   E x p i r a t i o n   H e a d e r   t o   C a c h e d   R e s p o n s e   i f   C u r r e n t   A g e   o f   R e s p o n s e   i s   m o r e   t h a n   2 4   h o u r s ,   a c c o r d i n g   t o   R F C   2 6 1 6 .     D e s c r i p t i o n :   R F C   s a y s :   T h e   c a c h e   M U S T   a t t a c h   W a r n i n g   1 1 3   t o   a n y   r e s p o n s e   w h o s e   a g e   i s   m o r e   t h a n   2 4   h o u r s   i f   s u c h   w a r n i n g   h a s   n o t   a l r e a d y   b e e n   a d d e d .   T h e r e f o r e ,   i f   c u r r e n t   a g e   i s   g r e a t e r   t h a n   2 4   h o u r s ,   t h e   w a r n i n g   i s   a d d e d   a s   a   h e a d r e   t o   t h e   c a c h e D a t a   a n d   s e n t   t o   t h e   c l i e n t .     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   f 7 7 d f 1 f   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   F r i   M a r   2 1   2 2 : 4 8 : 3 9   2 0 2 5   + 1 0 3 0     S u m m a r y :   P e r f o r m i n g   E x p i r a t i o n   C a l c u l a t i o n s   a c c o r d i n g   t o   R F C   2 6 1 6 .   T h u s ,   t h e   p r e v i o u s   v a r i a b l e   n a m e s   w e r e   c h a n g e d   t o   m a t c h   t h e   R F C   a n d   c a l c u l a t i o n s   w e r e   r e d o n e   t o   c h e c k   i f   c a c h e   h a s   e x p i r e d ,   i n   t e r m s   o f   r e s p o n s e _ i s _ f r e s h ,   f r e s h n e s s   l i f e t i m e   a n d   c u r r e n t   a g e .     D e s c r i p t i o n :     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   3 e b c 3 5 2   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   F r i   M a r   2 1   2 1 : 5 8 : 3 3   2 0 2 5   + 1 0 3 0     S u m m a r y :   W h e n   m a x _ a g e   d o e s   n o t   a p p e a r ,   c o m p u t i n g   f r e s h n e s s   l i f e t i m e   u s i n g   a   h e u r i s t i c   -   s e t t i n g   a s   2   d a y s   a n d   w r i t i n g   e x p i r y   t i m e   i n t o   c a c h e   m e t a   f i l e .     D e s c r i p t i o n :   R F C   s a y s :   I f   m a x _ a g e   d o e s   n o t   a p p e a r   i n   r e s p o n s e ,   t h e   c a c h e   M A Y   c o m p u t e   a   f r e s h n e s s   l i f e t i m e   u s i n g   a   h e u r i s t i c .   T h e r e f o r e ,   m a x _ a g e   ( f r e s h n e s s   l i f e t i m e )   i s   s e t   t o   2   d a y s   w h e n   m a x _ a g e   = =   N o n e .   T h e n ,   t h e   c o m p u t e d   e x p i r y   t i m e   t o   t h e   c a c h e   c o n t r o l   f i l e   i s   w r i t t e n   a f t e r   o p e n i n g   i t .   I t   i s   c o m p u t e d   b y   a d d i n g   c u r r e n t   t i m e   ( T i m e   i n   s e c o n d s   s i n c e   t h e   e p o c h )   t o   m a x   a g e .     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   c 0 a d a 9 0   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   F r i   M a r   2 1   2 1 : 3 8 : 3 0   2 0 2 5   + 1 0 3 0     S u m m a r y :   I f   c a c h e   e x p i r e d ,   R a i s i n g   e r r o r   s o   t h a t   t h e   p r o g r a m   g o e s   t o   e x c e p t   b l o c k   a n d   c o n t a c t s   t h e   o r i g i n   s e r v e r .     D e s c r i p t i o n :     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   9 3 3 8 e 9 7   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   F r i   M a r   2 1   2 1 : 2 9 : 2 5   2 0 2 5   + 1 0 3 0     S u m m a r y :   O p e n i n g   c a c h e   c o n t r o l   f i l e ,   r e a d i n g   t h e   e x p i r y   t i m e   c a l c u l a t e d   a n d   c h e c k i n g   i f   t h e   c a c h e   f i l e   h a s   e x p i r e d     D e s c r i p t i o n :   D e f i n i n g   t h e   c a c h e   m e t a   f i l e   p a t h   C h e c k i n g   i f   t h e   c a c h e   f i l e   a n d   t h e   c a c h e _ c o n t r o l   f i l e   e x i s t s   O p e n i n g   t h e   c a c h e _ c o n t r o l   f i l e   i n   r e a d   m o d e   R e a d   t h e   f i l e   a n d   r e t r i e v e   t h e   c a l c u l a t e d   e x p i r y   t i m e   C h e c k i n g   i f   c u r r e n t   t i m e   i s   g r e a t e r   t h a n   e x p i r y   t i m e   ( I f   e x p i r y   t i m e   h a s   p a s s e d   o r   n o t )     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   2 9 1 a 9 a 4   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   F r i   M a r   2 1   2 1 : 1 4 : 2 1   2 0 2 5   + 1 0 3 0     S u m m a r y :   R e s o l v i n g   e r r o r   w i t h   m a t c h i n g   c a c h e - c o n t r o l   h e a d e r   d u e   t o   c a s e   s e n s i t i v i t y ,   i n i t i a l i z i n g   m a x _ a g e   a s   N o n e   a n d   c h a n g i n g   c a c h e   f i l e   o p e n   t o   w i t h   o p e n   b l o c k .     D e s c r i p t i o n :     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   b 8 6 4 d 8 5   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T u e   M a r   1 8   2 3 : 5 8 : 2 1   2 0 2 5   + 1 0 3 0     S u m m a r y :   I m p l e m e n t e d   c a c h e - c o n t r o l   h e a d e r   p a r s i n g   t o   d e t e r m i n e   c a c h i n g   e l i g i b i l i t y .     D e s c r i p t i o n :   E x t r a c t e d   r e s p o n s e   h e a d e r s   f r o m   t h e   s e r v e r   r e s p o n s e   a n d   s a v e d   t h e m   i n   a   l i s t .     I t e r a t e d   t h r o u g h   e a c h   h e a d e r   t o   c h e c k   i f   i t   i s   a   C a c h e - C o n t r o l   h e a d e r .     U s e d   r e g e x   t o   s e a r c h   f o r   t h e   m a x - a g e   v a l u e   a n d   e x t r a c t   i t .     I f   m a x - a g e = 0 ,   c a c h i n g   i s   n o t   a l l o w e d ,   a n d   a   m e s s a g e   i s   p r i n t e d   t o   i n d i c a t e   t h i s .     O t h e r w i s e ,   t h e   m a x - a g e   v a l u e   i s   e x t r a c t e d ,   c o n v e r t e d   t o   a n   i n t e g e r ,   a n d   p r i n t e d   t o   s h o w   h o w   l o n g   t h e   r e s p o n s e   c a n   b e   c a c h e d .     C r e a t e d   a   f l a g   ( c a c h e _ a l l o w e d )   t o   d e t e r m i n e   i f   c a c h i n g   s h o u l d   h a p p e n .     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   6 8 0 1 8 9 a   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T u e   M a r   1 8   2 1 : 1 3 : 4 3   2 0 2 5   + 1 0 3 0     S u m m a r y :   C h a n g e s   o c c u r e d   i n   c a c h e d   f i l e   a s   I   d e l e t e d   i t   f o r   t e s t i n g   p u r p o s e s .     D e s c r i p t i o n :     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   f 8 3 8 2 f c   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T u e   M a r   1 8   2 1 : 1 2 : 3 5   2 0 2 5   + 1 0 3 0     S u m m a r y :   H a n d l i n g   r e d i r e c t i o n   -   A d d e d   a   r e d i r e c t i o n   f l a g   t o   c h a n g e   t h e   f l o w   o f   t h e   p r o g r a m   w h e n   r e d i r e c t i o n   o c c u r s .     D e s c r i p t i o n :   1 .   D e f i n e d   r e d i r e c t i o n   f l a g   a n d   l o c a t i o n .   2 .   A d d e d   ' i f   n o t   r e d i r e c t i o n   f l a g '   c o n d i t i o n   a n d   i n c l u d e d   t h e   n o r m a l   b e h a v i o r   t h e r e   v i a   i n d e n t a t i o n .   3 .   F o r   t h e   e l s e   p a r t   o f   t h e   a b o v e   c o n d i t i o n   ( w h e n   r e d i r e c t i o n   f l a g   =   1 ,   r e d i r e c t i o n   o c c u r s )   t h e   U R I   i s   s e t   t o   t h e   n e w   r e d i r e c t e d   l o c a t i o n   e x t r a c t e d .   4 .   R e d i r e c t i o n   f l a g   i s   u p d a t e d   t o   1 ,   w h e n   r e d i r e c t i o n   s t a t u s   i s   d e t e c t e d   a n d   r e d i r e c t e d   l o c a t i o n   i s   e x t r a c t e d .   5 .   R e d i r e c t i o n   f l a g   i s   s e t   t o   0   f o r   n o r m a l   b e h a v i o r   w i t h o u t   r e d i r e c t i o n .     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   a c 7 7 9 7 5   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T u e   M a r   1 8   1 9 : 5 1 : 5 5   2 0 2 5   + 1 0 3 0     S u m m a r y :   D e t e c t i n g   r e d i r e c t e d   w e b   p a g e s   i n   t h e   r e s p o n s e ,   s e a r c h i n g   f o r   t h e   r e d i r e c t e d   l o c a t i o n   a n d   e x t r a c t i n g   t h e   n e w   l o c a t i o n .     D e s c r i p t i o n :   1 .   D e t e c t i n g   i f   t h e r e   a r e   r e d i r e c t e d   w e b   p a g e s   i n   t h e   r e s p o n s e   2 .   U s i n g   r e g x   l i b r a r y ,   s e a r c h i n g   f o r   t h e   r e d i r e c t e d   l o c a t i o n .   3 .   E x t r a c t i n g   t h e   n e w   l o c a t i o n   f r o m   t h e   r e t u r n e d   r e g x   s e a r c h   r e s u l t .     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   8 4 b 8 0 a c   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T u e   M a r   1 8   1 9 : 2 2 : 5 6   2 0 2 5   + 1 0 3 0     S u m m a r y :   C o n v e r t i n g   t h e   b i n a r y   r e s p o n s e   i n t o   s t r i n g   w h i l e   i g n o r i n g   d e c o d e   e r r o r s .     D e s c r i p t i o n :     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   0 6 f 4 b 8 3   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   F r i   M a r   1 4   0 3 : 2 9 : 4 7   2 0 2 5   + 1 0 3 0     S u m m a r y :   A d d e d   ' I N S E R T   C O D E '   b l o c k   a s   r e m o v i n g   i t   c a u s e d   G r a d e s c o p e   S k e l e t o n   C o d e   C h e c k   E r r o r .     D e s c r i p t i o n :     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   4 0 6 7 7 3 6   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T h u   M a r   1 3   2 0 : 5 6 : 2 6   2 0 2 5   + 1 0 3 0     S u m m a r y :   E r r o r   c o r r e c t i n g   a t   C a c h e   H i t   -   w h e n   r e a d i n g   a   c a c h e d   f i l e .     D e s c r i p t i o n :   W h e n   I   t e s t e d   u s i n g   c u r l   -   I   t e s t e d   u s i n g   "   c u r l   - i S   h t t p : / / l o c a l h o s t : 8 0 8 0 / h t t p : / / h t t p . b a d s s l . c o m / "   f o r   t h e   s e c o n d   t i m e ,   t o   s e e   i f   t h e   c a c h e - h i t   s c e n a r i o   w o r k s   f i n e .   T h e r e   w a s   a n   e r r o r   a t   C a c h e   H i t   -   t h e   s e r v e r   w o u l d   p r i n t   i t   i s   a   c a c h e   h i t ,   b u t   t h e   f i l e   w a s   n o t   s e n t   t o   t h e   c l i e n t   f r o m   t h e   c a c h e   a n d   t h e   o r i g i n   s e r v e r   w a s   c o n t a c t e d .   I   w e n t   t h r o u g h   t r i a l   a n d   e r r o r   s e v e r a l   t i m e s   a n d   s o l v e d   t h e   i s s u e .   T h e   i s s u e s   w e r e :   t h e   f i l e   w a s   n o t   o p e n e d   i n   t h e   b i n a r y   f o r m a t ,   t h e   u s e   o f   r e a d l i n e s   c o m m a n d   a n d   c o n c a t e n a t i n g   i s s u e   w i t h   s t r i n g   ' > '   a n d   b i n a r y   c a c h e D a t a .     H e n c e ,   t h e   c a c h e   f i l e   o p e n i n g   f o r m a t   w a s   c h a n g e d   t o   ' r b ' ,   u s e d   ' r e a d '   c o m m a n d   t o   r e a d   c a c h e F i l e   a n d   p r i n t e d   c a c h e D a t a   s e p a r a t e l y .     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   f 0 9 4 c a 6   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T h u   M a r   1 3   2 0 : 1 7 : 4 9   2 0 2 5   + 1 0 3 0     S u m m a r y :   C o r r e c t i n g   t h e   e r r o r   " f a i l e d   t o   a c c e p t   c o n n e c t i o n "   a f t e r   t e s t i n g   w i t h   T e l n e t   c l i e n t .     D e s c r i p t i o n :   F o r   c l a r i t y ,   I   h a d   a d d e d   c l i e n t A d d r e s s   t o   b e   d i s p l a y e d   w h e n   t h e   p r o x y   s e r v e r   a c c e p t s   t h e   c l i e n t ' s   c o n n e c t i o n .   I   h a d   u s e d   " + "   w h i c h   g a v e   t h e   e r r o r   w h e n   t e s t i n g   t h e   p r o x y   s e r v e r   u s i n g   T e l n e t   c l i e n t .   I   c h a n g e d   i t   t o   a   c o m m a   a n d   a d d e d   t h e   c l i e n t A d d r e s s   t o   b e   d i s p l a y e d .     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   a f a 1 c d b   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T h u   M a r   1 3   2 0 : 0 3 : 5 8   2 0 2 5   + 1 0 3 0     S u m m a r y :   W r i t i n g   t h e   r e s p o n s e   r e c e i v e d   f r o m   o r i g i n   s e r v e r   t o   c a c h e F i l e .   ( S a v i n g   t h e   r e s p o n s e   f r o m   o r i g i n   s e r v e r )     D e s c r i p t i o n :     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   3 6 5 b a 0 f   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T h u   M a r   1 3   1 9 : 5 6 : 3 1   2 0 2 5   + 1 0 3 0     S u m m a r y :   S e n d i n g   t h e   r e s p o n s e   t a k e n   f r o m   o r i g i n   s e r v e r   t o   c l i e n t   u s i n g   s e n d a l l   m e t h o d .     D e s c r i p t i o n :     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   a a f a 0 b 1   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T h u   M a r   1 3   1 9 : 5 4 : 4 4   2 0 2 5   + 1 0 3 0     S u m m a r y :   R e c e i v e d   t h e   r e s p o n s e   f r o m   t h e   o r i g i n   s e r v e r .     D e s c r i p t i o n :     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   3 7 0 a 6 e e   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T h u   M a r   1 3   1 9 : 5 1 : 3 2   2 0 2 5   + 1 0 3 0     S u m m a r y :   U p d a t e   t h e   H T T P   r e q u e s t   l i n e   a n d   h e a d e r .     D e s c r i p t i o n :   T h e   r e s o u r c e   t h a t   h a d   b e e n   e x t r a c t e d   f r o m   U R I   w a s   u s e d   f o r   t h e   H T T P   r e q u e s t   l i n e   a n d   t h e   e x t r a c t e d   h o s t n a m e   w a s   u s e d   f o r   t h e   h e a d e r   l i n e .     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   c 6 2 1 4 a c   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T h u   M a r   1 3   1 9 : 2 9 : 4 3   2 0 2 5   + 1 0 3 0     S u m m a r y :   C r e a t e d   s o c k e t   t o   c o n n e c t   w i t h   o r i g i n   s e r v e r   a n d   c r e a t e d   c o n n e c t i o n   w i t h   o r i g i n   s e r v e r .   P o r t   w a s   g i v e n   a s   8 0 .     D e s c r i p t i o n :     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   7 d d 8 2 3 2   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T h u   M a r   1 3   1 9 : 2 0 : 2 8   2 0 2 5   + 1 0 3 0     S u m m a r y :   W h e n   i t   i s   a   C a c h e   H i t   -   s e n d   d a t a   u s i n g   " s o c k e t . s e n d a l l "   m e t h o d   t o   e n s u r e   a l l   d a t a   i s   s e n t .     D e s c r i p t i o n :     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   5 1 2 9 5 5 7   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T h u   M a r   1 3   1 9 : 1 4 : 2 4   2 0 2 5   + 1 0 3 0     S u m m a r y :   A d d e d   t r y   e x c e p t   b l o c k   t o   h a n d l e   e r r o r s   w h e n   g e t t i n g   H T T P   r e q u e s t   f r o m   c l i e n t   a n d   s t o r i n g   i t .     D e s c r i p t i o n :     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   e 5 3 a f 0 d   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T h u   M a r   1 3   1 8 : 5 7 : 4 9   2 0 2 5   + 1 0 3 0     S u m m a r y :   G o t   H T T P   r e q u e s t   f r o m   c l i e n t   a n d   s t o r e d   a s   m e s s a g e _ b y t e s     D e s c r i p t i o n :     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   4 6 9 c f f 8   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T h u   M a r   1 3   1 8 : 4 5 : 4 2   2 0 2 5   + 1 0 3 0     S u m m a r y :   R e n a m e d   f i l e   i n t o   P r o x y . p y   a c c o r d i n g   t o   g i v e n   s u b m i s s i o n   i n s t r u c t i o n s .     D e s c r i p t i o n :   I   d i d   n o t   n o t i c e   t h e   f i l e   n a m e   s h o u l d   b e   c h a n g e d ,   a n d   I   h a d   a l r e a d y   s t a r t e d   c r e a t i n g   s e r v e r   s o c k e t ,   b i n d i n g .   l i s t e n i n g   a n d   a c c e p t i n g .   A f t e r   t h a t   I   r e n a m e d   t h e   f i l e   t o   P r o x y . p y .     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   4 8 4 a c 3 2   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T h u   M a r   1 3   1 8 : 3 8 : 3 7   2 0 2 5   + 1 0 3 0     S u m m a r y :   A c c e p t e d   c l i e n t   c o n n e c t i o n   a n d   s t o r e d   i n   c l i e n t S o c k e t   a n d   c l i e n t A d d r e s s     D e s c r i p t i o n :     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   6 9 1 8 8 0 4   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T h u   M a r   1 3   1 8 : 2 8 : 4 6   2 0 2 5   + 1 0 3 0     S u m m a r y :   L i s t e n i n g   t o   s o c k e t ,   a l l o w i n g   3   t o   q u e u e     D e s c r i p t i o n :     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   6 8 e c 1 e d   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T h u   M a r   1 3   1 8 : 0 9 : 3 2   2 0 2 5   + 1 0 3 0     S u m m a r y :   B i n d i n g   S e r v e r   S o c k e t     D e s c r i p t i o n :     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   5 0 f a c e c   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T h u   M a r   1 3   1 7 : 3 2 : 3 3   2 0 2 5   + 1 0 3 0     S u m m a r y :   C r e a t e d   S e r v e r   S o c k e t     D e s c r i p t i o n :     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   c 4 2 1 8 d 0   A u t h o r :   N i l a n g i - E d i r i s i n g h e   D a t e :   T h u   M a r   1 3   1 7 : 1 6 : 3 6   2 0 2 5   + 1 0 3 0     S u m m a r y :   A d d e d   G i v e n   S k e l e t o n   C o d e     D e s c r i p t i o n :   A d d e d   P r o x y - s k e l e t o n ( 2 0 2 5 ) . p y     - - - - - - - - - - - - - - - - - - - - - - - -     C o m m i t :   9 c f 4 0 b 4   A u t h o r :   N i l a n g i   E d i r i s i n g h e   D a t e :   T h u   M a r   1 3   1 5 : 4 4 : 4 1   2 0 2 5   + 1 0 3 0     S u m m a r y :   I n i t i a l   c o m m i t     D e s c r i p t i o n :     - - - - - - - - - - - - - - - - - - - - - - - -   
