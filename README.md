@@ -1,76 +1,76 @@
 # 🧠 Programming Assignment 1: HTTP Web Proxy (Python-Based)
 
-Welcome to my submission for **Programming Assignment 1**, where I implemented a fully functional **HTTP Web Proxy Server** in Python. This proxy can handle caching, redirections, and even prefetching of linked resources — all aligned with **RFC 2616** standards.
+Welcome to my submission for **Programming Assignment 1**, where I built a feature-rich **HTTP Web Proxy Server** using Python 🐍. This project demonstrates HTTP request handling, response forwarding, caching mechanisms, redirection logic, and more — following the standards outlined in **RFC 2616**.
 
 ---
 
 ## 📁 Files Included
 
-- `Proxy.py` – Core implementation of a caching HTTP web proxy 🧱  
-- `Proxy-bonus.py` – Extended version with extra features like port parsing, Expires header support, and resource prefetching ⚡
+- `Proxy.py` 🧱 – Core HTTP proxy implementation with caching and redirection
+- `Proxy-bonus.py` ⚡ – Bonus version with support for ports, `Expires` header, and prefetching
 
 ---
 
-## 🧩 Core Functionality (Common to Both Versions)
+## 🧩 Core Features (Implemented in Both Versions)
 
-### 1. Server Initialization
-- Sets up a TCP socket that listens for client (browser) connections on a specified host and port.
+### 🔧 1. Server Initialization
+- 🖧 Creates a TCP socket
+- 🎯 Binds to the given IP and port
+- 📡 Listens for incoming client (browser) requests
 
-### 2. Handling Client Requests
-- Receives the HTTP request.
-- Parses the method, URI, and HTTP version.
-- Strips protocol and parent directory changes from the URI.
-- Extracts hostname and resource path.
+### 📥 2. Handling Client Requests
+- 📝 Receives and parses HTTP requests
+- 🔍 Extracts method, URI, and HTTP version
+- ✂️ Cleans URI of protocols and unsafe path references (e.g., `/..`)
+- 🌐 Separates hostname and requested resource
 
-### 3. Cache Check
-- Generates a local file path to check for cached response.
-- If found, it checks whether the response is still fresh:
-  - In `Proxy.py`: only `max-age` is used.
-  - In `Proxy-bonus.py`: both `max-age` and `Expires` headers are considered.
-- If fresh, returns cached response to the client.
-- Adds warning `113 Heuristic Expiration` if cache age > 24 hours.
+### 💾 3. Cache Check
+- 🗂️ Constructs a path to the local cache
+- 🕵️ Checks for the file and its freshness:
+  - ✅ `Proxy.py`: Evaluates `max-age` only
+  - ✅ `Proxy-bonus.py`: Considers both `max-age` and `Expires` headers
+- ⚠️ Adds `Warning: 113 Heuristic Expiration` for cache older than 24 hours
 
-### 4. Cache Miss or Expired Cache
-- Connects to the origin server.
-- Sends the original request.
-- Receives the response.
+### 🔄 4. Cache Miss or Expired Cache
+- 🌍 Establishes connection to the origin server
+- 📤 Forwards the request
+- 📥 Retrieves the response from the server
 
-### 5. Redirection Handling
-- Detects `301 Moved Permanently` or `302 Found`.
-- Extracts the `Location` header.
-- Updates URI and restarts request process.
-- In the implementation:
-  - **301 responses** are cached if allowed by the cache-control header.
-  - **302 responses** are *not* cached by default, unless explicitly allowed.
+### 🚦 5. Redirection Handling
+- 🔁 Detects HTTP `301` and `302` responses
+- 📍 Extracts the new `Location` from headers
+- 🔄 Re-initiates request using updated URI
+- ✅ Caches 301 if allowed, ❌ skips caching 302 unless explicitly permitted
 
-### 6. Cache Storage
-- Checks if `Cache-Control: max-age` is available.
-- If caching is allowed:
-  - Stores the response in a file.
-  - Writes a `.meta` file containing cache timestamp and `max-age`.
+### 💽 6. Cache Storage
+- 🧠 Inspects `Cache-Control: max-age`
+- 🏠 Saves response in local cache directory
+- 🗃️ Creates a `.meta` file to store timestamp and `max-age` for validation
 
-### 7. Finalize
-- Sends the response to the client.
-- Closes sockets and resets flags for the next connection.
+### 🧹 7. Finalization
+- 📬 Sends response back to the client
+- 🔒 Gracefully shuts down sockets and resets flags
 
 ---
 
-## 🔧 Additional Features in `Proxy-bonus.py`
+## 🌟 Bonus Features in `Proxy-bonus.py`
 
-### 1. Port Handling
-- Supports URLs with non-default ports like `example.com:8080`.
+### 🔢 Port Handling
+- 🔧 Extracts non-default ports like `example.com:8080` from URLs
+- 🔌 Connects to correct port on origin server
 
-### 2. `Expires` Header Support
-- Parses and validates cached responses using the `Expires` header.
+### ⏰ `Expires` Header Support
+- 📅 Parses `Expires` date and validates cache freshness accordingly
+- 🧠 Falls back to heuristics when no `max-age` or `Expires` is present
 
-### 3. Prefetching
-- Parses HTML content to find `href` and `src` attributes.
-- Sends requests for these linked resources.
-- Caches their responses for future use.
+### 🚀 Prefetching Resources
+- 🔗 Scans HTML content for linked resources (`href`, `src`)
+- ⛓️ Sends preemptive GET requests to cache them for faster future access
+- 💡 Improves performance by reducing subsequent load times
 
 ---
 
-## 📂 Directory Structure
+## 🗂️ Directory Structure
 
 ```
 ./<hostname>_<port>/<resource_path>
@@ -78,51 +78,55 @@ Welcome to my submission for **Programming Assignment 1**, where I implemented a
 └── .meta file (contains cache timestamp and max-age)
 ```
 
-If the resource path ends with a `/`, a `default` file is created.
+📝 If the resource path ends with `/`, a file named `default` is created.
 
 ---
 
 ## ⚙️ How to Run
 
-### Basic Proxy:
+### ▶️ Basic Proxy:
 ```bash
 python3 Proxy.py <hostname> <port>
 ```
 
-### Bonus Proxy:
+### 🚀 Bonus Proxy:
 ```bash
 python3 Proxy-bonus.py <hostname> <port>
 ```
 
-Set your browser or curl to use `localhost:<port>` as HTTP proxy.
+🔧 Set your browser or use `curl` to connect via the proxy using the provided IP and port.
 
 ---
 
 ## 📚 Learning Outcomes
 
-- Implemented a full-fledged HTTP proxy server with **socket programming** in Python.
-- Learned to parse and forward HTTP requests and handle server responses.
-- Gained practical insights into **HTTP caching mechanisms** and the usage of:
-  - `max-age`
-  - `Expires`
-  - Heuristic freshness validation
-- Understood how to work with **HTTP status codes**, especially `301`, `302`, and `200`.
-- Explored **resource prefetching** strategies for performance enhancement.
+- 🧠 Learned low-level **socket programming** with TCP in Python
+- 🌐 Implemented end-to-end **HTTP request forwarding**
+- 💾 Built a **file-based caching** system with freshness validation
+- 🔁 Handled redirections using status codes `301` and `302`
+- 🧠 Applied **RFC 2616** caching rules (`max-age`, `Expires`, heuristics)
+- 🚀 Designed a **prefetching mechanism** to improve perceived performance
+- 🔒 Improved security by sanitizing URIs (e.g., blocking `/..` traversal)
 
 ---
 
-## ✅ Notes
+## ✅ Project Notes
 
-- This proxy server supports **only HTTP GET** requests.
-- HTTPS is **not** supported in this assignment.
-- Cached responses are stored in a directory structure mimicking the request URL path.
-- A `.meta` file is created per cached resource for freshness calculations.
-- Prefetching works only for statically linked resources (found in `href` and `src`).
+- ✅ Supports only **HTTP GET** requests
+- 🚫 Does **not support HTTPS**
+- 🗃️ Stores cached files in a local directory structure mimicking request paths
+- 📁 Each cached resource includes a `.meta` file for tracking expiration
+- 📡 Prefetching is applied only to static resources detected in HTML (`href`, `src`)
 
 ---
 
-## 🙌 Credits
+## 🙌 Acknowledgements
 
-Developed by **Nilangi Edirisinghe**  
-University of Adelaide | COMP SCI - Programming Assignment 1  
-📅 Semester 1, 2025
+👩‍🏫 **This project was completed as part of COMP SCI 7039 - Computer Networks & Applications.**
+
+A huge thank you to **Dr. Cheryl Pope** and all course instructors for their support, guidance, and knowledge throughout the semester! 💙
+
+---
+
+👨‍💻 Developed by **Nilangi Edirisinghe**  
+🎓 University of Adelaide | Semester 1, 2025
