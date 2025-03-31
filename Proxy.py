@@ -19,7 +19,9 @@ proxyPort = int(args.port)
 
 # Create a server socket, bind it to a port and start listening
 try:
+  # ~~~~ INSERT CODE ~~~~
   serverSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+  # ~~~~ END CODE INSERT ~~~~
   print ('Created socket')
 except:
   print ('Failed to create socket')
@@ -27,7 +29,9 @@ except:
 
 try:
   # Bind the the server socket to a host and port
+  # ~~~~ INSERT CODE ~~~~
   serverSocket.bind((proxyHost, proxyPort))
+  # ~~~~ END CODE INSERT ~~~~
   print ('Port is bound')
 except:
   print('Port is already in use')
@@ -35,7 +39,9 @@ except:
 
 try:
   #Assumes that the proxy server allows 3 unaccepted connections to queue
+  # ~~~~ INSERT CODE ~~~~
   serverSocket.listen(3) 
+  # ~~~~ END CODE INSERT ~~~~
   print ('Listening to socket')
 except:
   print ('Failed to listen')
@@ -55,7 +61,9 @@ while True:
 
     # Accept connection from client and store in the clientSocket
     try:
+      # ~~~~ INSERT CODE ~~~~
       clientSocket, clientAddress = serverSocket.accept()
+      # ~~~~ END CODE INSERT ~~~~
       #For debugging purposes, added clientAddress
       print ('Received a connection from ',clientAddress)
     except:
@@ -65,7 +73,9 @@ while True:
     # Get HTTP request from client
     # and store it in the variable: message_bytes
     try:
+      # ~~~~ INSERT CODE ~~~~
       message_bytes = clientSocket.recv(BUFFER_SIZE)
+      # ~~~~ END CODE INSERT ~~~~
       message = message_bytes.decode('utf-8')
       print ('Received request:')
       print ('< ' + message)
@@ -154,12 +164,13 @@ while True:
     #RFC says: The cache MUST attach Warning 113 to any response whose age is more than 24 hours if such warning
     #has not already been added. Therefore, if current age is greater than 24 hours, the warning is added as a headre to the cacheData and sent to the client.
     
+    # ~~~~ INSERT CODE ~~~~
     if current_age > 60*60*24:
       print("Warning: 113 Heuristic Expiration")
       warning_header = f'\r\nWarning: 113 {hostname}:80 "Heuristic expiration"'
       cacheData = cacheData.replace(b'\r\n\r\n',warning_header.encode()+b'\r\n\r\n',1)
     clientSocket.sendall(cacheData)
-  
+    # ~~~~ END CODE INSERT ~~~~
     cacheFile.close()
     print ('Sent to the client:')
     print ('> ',cacheData)
@@ -168,14 +179,18 @@ while True:
     originServerSocket = None
     # Create a socket to connect to origin server
     # and store in originServerSocket
+    # ~~~~ INSERT CODE ~~~~
     originServerSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    # ~~~~ END CODE INSERT ~~~~
 
     print ('Connecting to:\t\t' + hostname + '\n')
     try:
       # Get the IP address for a hostname
       address = socket.gethostbyname(hostname)
       # Connect to the origin server
+      # ~~~~ INSERT CODE ~~~~
       originServerSocket.connect((address, 80))
+      # ~~~~ END CODE INSERT ~~~~
       print ('Connected to origin Server')
 
       originServerRequest = ''
@@ -184,9 +199,11 @@ while True:
       # and store in originServerRequestHeader and originServerRequest
       # originServerRequest is the first line in the request and
       # originServerRequestHeader is the second line in the request
+      # ~~~~ INSERT CODE ~~~~
       originServerRequest = f'{method} {resource} {version}'
       originServerRequestHeader = f'Host: {hostname}'
-
+      # ~~~~ END CODE INSERT ~~~~
+      
       # Construct the request to send to the origin server
       request = originServerRequest + '\r\n' + originServerRequestHeader + '\r\n\r\n'
 
@@ -204,7 +221,9 @@ while True:
       print('Request sent to origin server\n')
 
       # Get the response from the origin server
+      # ~~~~ INSERT CODE ~~~~
       response = originServerSocket.recv(BUFFER_SIZE)
+      # ~~~~ END CODE INSERT ~~~~
       #Convert the binary response into string while ignoring decode errors.
       response_string = response.decode(errors='ignore')
       
@@ -229,8 +248,10 @@ while True:
         #Updating the redirection flag to 0 for normal behaviour without redirection
         redirection_flag = 0 
       # Send the response to the client
+      # ~~~~ INSERT CODE ~~~~
       clientSocket.sendall(response)
-
+      # ~~~~ END CODE INSERT ~~~~
+      
       #Extracting the headers from the response and saving them to a list
       response_headers = response.decode(errors='ignore').split('\r\n')
      
