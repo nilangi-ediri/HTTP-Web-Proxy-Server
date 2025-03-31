@@ -102,7 +102,7 @@ while True:
   resource = '/'
   
   #Adding the ability to handle origin server ports that are specified in the URL.
-  hostname_port = resourceParts[0] #hostname:portnumber
+  hostname_port = resourceParts[0] #hostname:portnumber or hostname
   if ':' in hostname_port:
     hostname, port = hostname_port.split(':',1)
     port = int(port)
@@ -119,7 +119,8 @@ while True:
 
   # Check if resource is in cache
   try:
-    cacheLocation = './' + hostname + resource
+    #Added port number to cache location
+    cacheLocation = f'./{hostname}_{port}{resource}'
     if cacheLocation.endswith('/'):
         cacheLocation = cacheLocation + 'default'
 
