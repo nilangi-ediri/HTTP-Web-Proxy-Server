@@ -7,6 +7,7 @@ import argparse
 import re
 import time
 import calendar
+from urllib.parse import urljoin
 
 # 1MB buffer size
 BUFFER_SIZE = 1000000
@@ -333,6 +334,15 @@ while True:
           #Writing the date_value (current time) and freshness lifetime (max_age) to cache control file for expiration calculations according to RFC 2616.
           cache_control_file.write(f'{time.time()}\n{max_age}')
                        
+      #Decoding response to string readable format from binary format, to pre-fetch the associated files of the main webpage
+      html_content = response.decode(errors='ignore')
+      #Search and extract the href and src links
+      links = re.findall(r'(?:href|src)=["\'](.*?)["\']',html_content)
+      
+      print("---------------------------Printing URLs--------------------------------------------")
+      for link in links:
+        full_url = urljoin(f'http://{hostname}:{port}',link)
+        print(full_url)
         
      # finished communicating with origin server - shutdown socket writes
       print ('origin response received. Closing sockets')
