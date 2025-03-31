@@ -1,0 +1,15 @@
+HTTP/1.1 301 Moved Permanently
+Date: Mon, 31 Mar 2025 02:39:28 GMT
+Server: Apache
+Location: http://positon.org/an-outgoing-port-tester
+Vary: Accept-Encoding
+Content-Length: 250
+Content-Type: text/html; charset=iso-8859-1
+
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>301 Moved Permanently</title>
+</head><body>
+<h1>Moved Permanently</h1>
+<p>The document has moved <a href="http://positon.org/an-outgoing-port-tester">here</a>.</p>
+</body></html>

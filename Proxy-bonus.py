@@ -339,10 +339,97 @@ while True:
       #Search and extract the href and src links
       links = re.findall(r'(?:href|src)=["\'](.*?)["\']',html_content)
       
-      print("---------------------------Printing URLs--------------------------------------------")
       for link in links:
         full_url = urljoin(f'http://{hostname}:{port}',link)
-        print(full_url)
+        print("------------------>Prefetching: ", full_url)
+        try:
+          full_url = re.sub('^(/?)http(s?)://', '', full_url, count=1)
+          # Remove parent directory changes - security
+          full_url = full_url.replace('/..', '')
+          # Split hostname from resource name
+          prefetch_resourceParts = full_url.split('/', 1)
+          prefetch_hostname = prefetch_resourceParts[0]
+          prefetch_resource = '/'     
+          prefetch_hostname_port = prefetch_resourceParts[0] #hostname:portnumber or hostname
+          if ':' in prefetch_hostname_port:
+            prefetch_hostname, prefetch_port = prefetch_hostname_port.split(':',1)
+            prefetch_port = int(prefetch_port)
+          else:
+            prefetch_hostname = prefetch_hostname_port
+            prefetch_port = 80
+    
+          if len(prefetch_resourceParts) == 2:
+            # Resource is absolute URI with hostname and resource
+            prefetch_resource = prefetch_resource + prefetch_resourceParts[1]
+          
+          #Checks if Cache exists and creates Cache location for Prefetched files
+          prefetch_cacheLocation = f'./{prefetch_hostname}_{prefetch_port}{prefetch_resource}'
+          if prefetch_cacheLocation.endswith('/'):
+              prefetch_cacheLocation = prefetch_cacheLocation + 'default'
+          prefetch_fileExists = os.path.isfile(prefetch_cacheLocation)
+         
+          #Creating prefetch server socket 
+          prefetch_ServerSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+          # Get the IP address for a prefetch_hostname via DNS server
+          prefetch_address = socket.gethostbyname(prefetch_hostname)
+          # Connect to the prefetch server
+          prefetch_ServerSocket.connect((prefetch_address, prefetch_port))
+          print ('Connected to Prefetch Server')
+          
+          #Repeating the same steps as fetching from origin server for prefetch server for GET request
+          prefetch_ServerRequest = ''
+          prefetch_ServerRequestHeader = ''
+          
+          prefetch_ServerRequest = f'GET {prefetch_resource} {version}'
+          prefetch_ServerRequestHeader = f'Host: {prefetch_hostname}'
+
+          # Construct the request to send to the prefetch server
+          prefetch_request = prefetch_ServerRequest + '\r\n' + prefetch_ServerRequestHeader + '\r\n\r\n'
+          prefetch_ServerSocket.sendall(prefetch_request.encode())
+          
+          print('Request sent to prefetch server\n')
+
+          # Get the response from the prefetch server
+          prefetch_response = prefetch_ServerSocket.recv(BUFFER_SIZE)
+          #Convert the binary response into string while ignoring decode errors.
+          prefetch_response_string = prefetch_response.decode(errors='ignore')
+                    
+          prefetch_response_headers = prefetch_response.decode(errors='ignore').split('\r\n')
+          #Performing caching based on max-age for prefetched files as done previously.
+          max_age = None
+          prefetch_cache_allowed = True
+          prefetch_cache_control_file_location = prefetch_cacheLocation + ".meta"
+    
+          for header in prefetch_response_headers:
+            if header.lower().startswith('cache-control'):          
+              max_age_found = re.search(r'max-age=(\d+)',header,re.IGNORECASE)
+              if max_age_found:
+                max_age = int(max_age_found.group(1))
+                if max_age == 0:
+                  perefetch_cache_allowed = False
+                  print("Caching is not allowed")
+                else:
+                  prefetch_cache_allowed = True
+                  print("Max-age for caching is: ", max_age)
+          
+          if prefetch_cache_allowed:
+            cacheDir, file = os.path.split(prefetch_cacheLocation)
+            print ('Prefetch cached directory ' + cacheDir)
+            if not os.path.exists(cacheDir):
+              os.makedirs(cacheDir)
+            
+            with open (prefetch_cacheLocation, 'wb') as cacheFile:
+              cacheFile.write(prefetch_response)
+            print ('Prefetched cache file closed')
+            
+            if max_age == None:
+              max_age = 60*60*24*2
+              
+            with open (prefetch_cache_control_file_location, "w") as cache_control_file:
+              cache_control_file.write(f'{time.time()}\n{max_age}')
+          
+        except Exception as e:
+          print("Failed to prefetch: ", full_url, " Exception: ", e)
         
      # finished communicating with origin server - shutdown socket writes
       print ('origin response received. Closing sockets')

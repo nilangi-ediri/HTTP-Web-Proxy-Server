@@ -1,0 +1,219 @@
+HTTP/1.1 200 OK
+Date: Mon, 31 Mar 2025 02:39:29 GMT
+Server: Apache
+X-Powered-By: PHP/5.4.45-0+deb7u14
+Set-Cookie: qtrans_cookie_test=qTranslate+Cookie+Test; path=/; domain=positon.org
+X-Pingback: http://positon.org/xmlrpc.php
+Link: <http://positon.org/?p=209>; rel=shortlink
+Vary: Accept-Encoding
+Transfer-Encoding: chunked
+Content-Type: text/html; charset=UTF-8
+
+20ae
+<!DOCTYPE html> 
+<html lang="en-US">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Portquiz.net : how it works | Libre Things</title>
+		<link rel="stylesheet" href="http://positon.org/wp-content/themes/picochic-mm/style.css" type="text/css" media="screen" />
+	<link rel="pingback" href="http://positon.org/xmlrpc.php" />
+
+	<!-- HTML5 for IE < 9 -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<link rel="alternate" type="application/rss+xml" title="Libre Things &raquo; Feed" href="http://positon.org/feed" />
+<link rel="alternate" type="application/rss+xml" title="Libre Things &raquo; Comments Feed" href="http://positon.org/comments/feed" />
+<link rel="alternate" type="application/rss+xml" title="Libre Things &raquo; Portquiz.net : how it works Comments Feed" href="http://positon.org/portquiz-net-how-it-works/feed" />
+<script type='text/javascript' src='http://positon.org/wp-includes/js/comment-reply.min.js?ver=3.7.1'></script>
+<script type='text/javascript' src='http://positon.org/wp-includes/js/jquery/jquery.js?ver=1.10.2'></script>
+<script type='text/javascript' src='http://positon.org/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>
+<script type='text/javascript' src='http://positon.org/wp-content/themes/picochic-mm/js/scripts.js?ver=3.7.1'></script>
+<script type='text/javascript' src='http://positon.org/wp-content/themes/picochic-mm/js/respond.min.js?ver=3.7.1'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://positon.org/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://positon.org/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='Nautilus script to search opensubtitles.org' href='http://positon.org/nautilus-script-to-search-opensubtitles-org' />
+<link rel='next' title='Is OVH blocking port 445 ?' href='http://positon.org/is-ovh-blocking-port-445' />
+<meta name="generator" content="WordPress 3.7.1" />
+<link rel='canonical' href='http://positon.org/portquiz-net-how-it-works' />
+<link rel='shortlink' href='http://positon.org/?p=209' />
+
+<meta http-equiv="Content-Language" content="en-US" />
+<style type="text/css" media="screen">
+.qtrans_flag span { display:none }
+.qtrans_flag { height:12px; width:18px; display:block }
+.qtrans_flag_and_text { padding-left:20px }
+.qtrans_flag_en { background:url(http://positon.org/wp-content/plugins/qtranslate/flags/gb.png) no-repeat }
+.qtrans_flag_fr { background:url(http://positon.org/wp-content/plugins/qtranslate/flags/fr.png) no-repeat }
+</style>
+<link hreflang="fr" href="http://fr.positon.org/portquiz-net-how-it-works" rel="alternate" />
+
+
+	<style type="text/css">
+		a, #comments h3, h3#reply-title {
+			color: #3ee600;
+		}
+		
+        ::selection, ::-moz-selection {
+			background: rgba(62,230,0,0.8);
+			color: #fff;
+		}
+		
+		.format-link h2 a, #header-image-div {
+			background: #3ee600;
+		}
+		
+		@media screen and (max-width: 850px) {
+			nav ul li a:active, nav ul li a:focus, nav ul li a:hover {
+				background: #3ee600;
+			}
+		}
+
+		input[type=submit]:hover, button:hover, .navigation a:hover, input[type=submit]:active, button:active, .navigation a:active, input[type=submit]:focus, button:focus, .navigation a:focus {
+			box-shadow: 0 0 4px rgba(62,230,0,0.8);
+			border: 1px solid rgba(62,230,0,0.8)!important;
+		}
+
+		input:focus, textarea:focus {
+			box-shadow: inset 0 0 3px rgba(62,230,0,0.2);
+			border: 1px solid rgba(62,230,0,0.2);
+		}
+	</style>
+
+
+
+	<style type="text/css">
+		#headersearch {
+			display: none;
+		}
+	</style>
+
+
+	<style type="text/css">
+		@media screen and (min-width: 851px) {
+			#headerimage {
+				height: 22px;
+			}
+		}
+	</style>
+
+</head>
+
+<body class="single single-post postid-209 single-format-standard">
+<div id="wrapper">
+	<header id="header">
+
+		<section id="head">
+			<div id="langflags">
+			<a href="http://positon.org/portquiz-net-how-it-works" hreflang="en"><img src="http://positon.org/wp-content/themes/picochic-mm/images/flag_en.png" alt="English Flag" /></a>
+			<a href="http://fr.positon.org/english-portquiz-net-how-it-works" hreflang="fr"><img src="http://positon.org/wp-content/themes/picochic-mm/images/flag_fr.png" alt="French Flag" /></a>
+			</div>
+			<form method="get" id="headersearch" action="http://positon.org" >
+				<label class="hidden" for="hs">Search:</label>
+				<div>
+					<input type="text" value="" name="s" id="hs" /><input type="submit" id="hsearchsubmit" value="Search" /> 
+				</div>
+			</form>	
+						<h1><a href="http://positon.org">Libre Things</a></h1>
+			<p class="description"></p>
+		</section>
+
+					<div id="header-image-div"><a href="http://positon.org"><img id="headerimage" src="http://positon.org/wp-content/themes/picochic-mm/images/headers/stripes.png" alt="" /></a></div>
+				
+		<button id="showmenu">Menu</button>
+		<form method="get" id="mobilesearch" action="http://positon.org" >
+			<label class="hidden" for="s">Search:</label>
+			<div>
+				<input type="text" value="" name="s" id="s" /><input type="submit" id="searchsubmit" value="Search" /> 
+			</div>
+		</form>
+		
+		<!--<nav id="mobnav">
+					</nav>-->
+
+
+	</header>
+
+	<section id="main">
+
+
+
+	<div id="content">
+
+	
+			<article id="post-209" class="post-209 post type-post status-publish format-standard hentry category-uncategorized">	
+
+
+				<div class="title">
+				<h2><a href="http://positon.org/portquiz-net-how-it-works" title="Portquiz.net : how it works">Portquiz.net : how it works</a></h2>
+			</div>
+		
+	<div class="meta">
+				2015-10-27 20:11	</div>
+
+	<div class="entry">
+		<p>I&#8217;ve been asked a few time how Portquiz.net works.</p>
+<p>It&#8217;s really simple. It&#8217;s just made of a few <strong>iptables</strong> rules. I&#8217;m using the iptables-persistent Debian package to make the rules persist a reboot.</p>
+<p>Here is the content of <strong>/etc/iptables/rules.v4</strong>:</p>
+<p><code><br />
+# Generated by iptables-save v1.4.14 on Sun Aug 25 12:43:34 2013<br />
+*nat<br />
+:PREROUTING ACCEPT [0:0]<br />
+:POSTROUTING ACCEPT [0:0]<br />
+:OUTPUT ACCEPT [0:0]<br />
+-A PREROUTING -i lo -j RETURN<br />
+-A PREROUTING -p icmp -j RETURN<br />
+-A PREROUTING -m state --state RELATED,ESTABLISHED -j RETURN<br />
+-A PREROUTING -p tcp -m tcp --dport 22 -j RETURN<br />
+-A PREROUTING -p tcp -m tcp --dport 21 -j RETURN<br />
+-A PREROUTING -p tcp -m tcp --dport 25 -j RETURN<br />
+-A PREROUTING -p tcp -m tcp --dport 80 -j RETURN<br />
+-A PREROUTING -p tcp -m tcp --dport 443 -j RETURN<br />
+-A PREROUTING -p tcp -j DNAT --to-destination :80<br />
+COMMIT<br />
+# Completed on Sun Aug 25 12:43:34 2013<br />
+# Generated by iptables-save v1.4.14 on Sun Aug 25 12:43:34 2013<br />
+*filter<br />
+:INPUT ACCEPT [0:0]<br />
+:FORWARD ACCEPT [0:0]<br />
+:OUTPUT ACCEPT [0:0]<br />
+-A INPUT -p icmp -j ACCEPT<br />
+-A INPUT -i lo -j ACCEPT<br />
+-A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT<br />
+-A INPUT -p tcp -m state --state NEW -m tcp --dport 22 -j ACCEPT<br />
+-A INPUT -p tcp -m state --state NEW -m tcp --dport 21 -j ACCEPT<br />
+-A INPUT -p tcp -m state --state NEW -m tcp --dport 25 -j ACCEPT<br />
+-A INPUT -p tcp -m state --state NEW -m tcp --dport 80 -j ACCEPT<br />
+-A INPUT -p tcp -m state --state NEW -m tcp --dport 443 -j ACCEPT<br />
+-A INPUT -j DROP<br />
+COMMIT<br />
+# Completed on Sun Aug 25 12:43:34 2013<br />
+</code></p>
+<p>The filter table is classical: ACCEPT a few services, then DROP the rest.</p>
+<p>Portquiz.net logic is in the nat table:</p>
+<ul>
+<li>Forward connection on any port to port 80 (DNAT &#8211;to-destination :80)</li>
+<li>Except for normal services (just RETURN for normal activity)</li>
+</ul>
+			</div>
+
+	<div class="meta">
+				2015-10-27 20:11					</div>
+	
+</article>
+
+			
+			<div id="comments">
+			<h3>5 Comments</h3>
+
+			<div class="comment-nav">
+				<div class="alignleft"></div>
+				<div class="alignright"></div>
+			</div>
+			<ol class="commentlist">
+					<li class="comment even thread-even depth-1" id="li-comment-1263">
+		<div class="comment_gravatar">
+			<img alt='' src='http://0.gravatar.com/avatar/cf6c6530079b54487d88303f75cd46c7?s=60&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D60&amp;r=G' class='avatar avatar-60 photo' height='60' width='60' />
