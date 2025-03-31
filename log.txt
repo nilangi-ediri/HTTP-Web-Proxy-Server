@@ -132,9 +132,9 @@ Description:
 - Used urljoin() to convert relative URLs to absolute URLs based on the current hostname and port.
 - For each extracted resource, established a connection to the appropriate origin server and sent a GET request to prefetch it.
 - The response from the server was handled and cached using the same caching process as the main request, including:
-  ΓÇó Creating cache file paths based on hostname, port, and resource path.
-  ΓÇó Respecting Cache-Control headers (e.g., max-age) for expiration.
-  ΓÇó Writing the response and metadata (timestamp and max-age) to cache files.
+   --- Creating cache file paths based on hostname, port, and resource path.
+   --- Respecting Cache-Control headers (e.g., max-age) for expiration.
+   --- Writing the response and metadata (timestamp and max-age) to cache files.
 - Prefetched files are stored locally but not sent to the client unless requested.
 - Handled exceptions to ensure proxy stability even if a prefetch attempt fails.
 
